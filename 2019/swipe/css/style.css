@@ -1,0 +1,108 @@
+/* 임시 + reset*/
+@import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{text-decoration: none;}
+li{list-style: none;}
+.textdel{
+  font-size: 0; text-indent: -9999px; color: transparent;
+}
+.clearboth{
+   clear: both;
+}
+.fll{
+  float: left;
+}
+.flr{
+  float: right;
+}
+.fwb{
+  font-weight: bold;
+}
+.fwl{
+   font-weight: lighter;
+}
+img{vertical-align: middle;}
+
+/* //임시 + reset*/
+
+html,body{height:100%;background-color:#f2f3f7}
+body{font-family:'Noto Sans KR',sans-serif;letter-spacing:-.1em}
+.allwrap{height:100%}
+.cwrap{width:95%;margin:0 auto}
+.swipe-area{height:100%;position:relative}
+.swipe-nav{width:100%;color:#fff;z-index:9999}
+.nav-top{width:100%;position:relative;top:4.05%;margin-top:4%;position:fixed;z-index:9999}
+.nav-middle{width:100%;box-sizing:border-box;position:fixed;top:23.75%;z-index:9999}
+.nav-middle.active{top:0!important;background-color:#fff;border-bottom:1px solid #e5e5e5}
+.nav-userhello{position:absolute;top:0;left:5%;font-size:5.5vw;font-weight:lighter;opacity:.6}
+.nav-menu{width:26px;height:26px;position:absolute;top:0;right:5%}
+.nav-menu a{display:inline-block;width:100%;height:100%;background-color:#fff}
+.nav-list{height:100%;display:-webkit-flex;display:-ms-flex;display:flex;justify-content:space-between;padding:0 8%}
+.nav-item{opacity:.6;margin:0 2%;display:inline-block;padding:2% 3%}
+.nav-item a{color:#fff;font-size:4.3vw}
+.nav-item.active{opacity:1;font-weight:700;border-bottom:.4vw solid #fff}
+.nav-middle.active .nav-list{justify-content:space-around;padding:0 12%}
+.nav-middle.active .nav-item{border-bottom:none;padding:5% 0 6%}
+.nav-middle.active .nav-item a{color:#a8a8a8;font-size:3.9vw}
+.nav-middle.active .nav-item.active a{color:#4e4e4e;border-bottom:.4vw solid #4e4e4e}
+.swiper-container{width:100%;height:100%;}
+.swiper-wrapper{height:100%;-webkit-overflow-scrolling:touch;}
+.swiper-slide{box-sizing:border-box;height:100%;overflow:scroll}
+.swiper-slide:nth-child(1) .bgcolor{background-color:#93ca1f}
+.swiper-slide:nth-child(2) .bgcolor{background-color:#7d4bd2}
+.swiper-slide:nth-child(3) .bgcolor{background-color:#fc745d}
+.swiper-slide:nth-child(1) .nav-filter a{background-color:#93ca1f}
+.swiper-slide:nth-child(2) .nav-filter a{background-color:#7d4bd2}
+.swiper-slide:nth-child(3) .nav-filter a{background-color:#fc745d}
+.swiper-slide .bgcolor{display:block;width:100%;height:68%;position:absolute;top:0;left:0;z-index:-1}
+.swiper-slide h2{position:fixed;width:100%;top:40.47%;font-size:9.7vw;font-weight:lighter;text-align:right;line-height:1.3em;color:#fff;z-index:0;margin-left:-7.8%}
+.swiper-content-area{width:100%;height:100%;position:relative;z-index:1;box-sizing:border-box}
+.swiper-content-grid{width:84.4%;height:100%;margin:0 auto;position:absolute;top:59.67%;left:7.8%}
+.swiper-content-item{height:15%;margin-bottom:3%;background-color:#fff}
+.nav-filter{position:fixed;width:100%;bottom:0;position:fixed;width:100%;bottom: 3%;text-align:center;z-index:3;opacity:0}
+.nav-filter.active{opacity:1}
+.nav-filter a{padding:2% 5%;border-radius:2000px;display:inline-block;color:#fff}
+.nav-middle.active,.nav-filter{transition:all .4s ease-out}
+.swiper-container-android .swiper-slide,.swiper-wrapper{-webkit-transform:none;-ms-transform:none;transform:none}

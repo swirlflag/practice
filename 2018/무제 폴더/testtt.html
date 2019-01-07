@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+
+<style>
+*{margin: 0; padding: 0;}
+html,body{overflow-y : hidden;}
+html,body,
+.share-display,
+.contents,
+.images img,
+.share-display .images
+{width: 100%; height: 100%;}
+.share-display{position: relative;}
+.images img{
+  vertical-align: middle;
+  object-fit: cover;
+}
+div[class^=side-]{
+  box-sizing:border-box;
+  position: absolute;
+  width: 50%; height: 100%;
+  transition:all 700ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+div.side-left{left: 0;}
+div.side-right{right: 0;}
+</style>
+
+<body>
+
+  <div class="share-display">
+
+    <div class="side-left">
+      <div class="contents">
+        <div class="images">
+          <img src="1.jpeg" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="side-right">
+      <div class="contents">
+        <div class="images">
+          <img src="2.jpeg" alt="">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script>
+
+var rightSide = document.getElementsByClassName('side-left')[0]
+  , leftSide = document.getElementsByClassName('side-right')[0]
+;
+
+var delta = 0;
+var sideSync = 0;
+var resetCount = 0;
+
+var wheelUpDownDetected = function(){
+  window.addEventListener('mousewheel', function(evt){
+    resetCount = 0;
+    evt.deltaY < 0 ? delta = 1 : delta = 2;
+    console.log('delta : ' +delta);
+  });
+};
+
+var setHalfSize = function(){
+  rightSide.style.width = 50.1 + '%';
+  leftSide.style.width = 50.1 + '%';
+};
+
+var resetCountFunc = function(sec){
+  if(!sec){sec = 5};
+  var resetInterval = setInterval(function(){
+    ++resetCount;
+    if(resetCount > sec-1){
+      console.log('reset!');
+      delta = 0;
+      setHalfSize();
+    };
+  },1000);
+};
+
+var setShareSize = function(num){
+  if(sideSync == delta){return};
+  if(!num){num = 30;};
+  if(delta == 0){
+    setHalfSize();
+    sideSync = 0;
+  }else{
+    if(delta == 1){
+      leftSide.style.width = num + '%';
+      rightSide.style.width = 101 - num + '%';
+      sideSync = 1;
+    }else if(delta == 2){
+      rightSide.style.width = num + '%';
+      leftSide.style.width = 101 - num + '%';
+      sideSync = 2;
+    }else{
+      throw 'delta값 에러'
+    };
+  };
+};
+
+var deltaSetIntervalFunction = function(){
+  deltaSetInterval = setInterval(function(){
+    setShareSize(10);
+  },200);
+};
+
+window.addEventListener('DOMContentLoaded', function(evt){
+  resetCountFunc(3);
+  wheelUpDownDetected();
+  deltaSetIntervalFunction();
+});
+
+</script>
+</html>

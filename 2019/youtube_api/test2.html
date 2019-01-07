@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Youtube API</title>
+<style>
+    article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,button,input,abbr,article,aside,command,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time,menu,select,legend{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{font-size:1em;font-weight:400}
+audio,canvas,video{display:inline-block;*display:inline;*zoom:1}
+audio:not([controls]){display:none;height:0}
+[hidden]{display:none}
+html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+html,button,input,select,textarea{font-family:"Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;word-spacing:-1px;-webkit-text-size-adjust:none}
+body{margin:0}
+a:active,a:hover,a:focus{outline:0}
+b,strong{font-weight:bold}
+ul,ol{list-style:none}
+img{border:0;-ms-interpolation-mode:bicubic}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+form{margin:0}
+legend{border:0;padding:0;white-space:normal;*margin-left:-7px}
+button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}
+button,input{line-height:normal}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;*overflow:visible}
+button[disabled],input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;*height:13px;*width:13px}
+input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type=search]::-webkit-search-cancel-button,input[type='search']::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+a,button{-webkit-tap-highlight-color:transparent}
+button{border:0 none;background-color:transparent;cursor:pointer}
+textarea{overflow:auto;vertical-align:top;resize:none;font-family:"Helvetica Neue", Helvetica, Roboto, Arial, sans-serif}
+table{border-collapse:collapse;border-spacing:0}
+html,button,input,select,textarea,a{color:#212121}
+*{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+img{vertical-align:middle}
+a{cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none}
+a:hover{color:#212121}
+a:hover,a:link,a:visited,a:active{text-decoration:none}
+a.select{cursor:default !important;-webkit-transition:none !important;-moz-transition:none !important;-ms-transition:none !important;-o-transition:none !important;transition:none !important}
+input{-webkit-appearance:none;border-radius:0;font-family:"Helvetica Neue", Helvetica, Roboto, Arial, sans-serif}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+fieldset{border:none}
+ /* ----  ---- */
+.section{overflow:hidden;position:relative;top:0;right:0;bottom:0;left:0;width:100%;height:100vh}
+.section .image-area{position:absolute;top:0;right:0;left:0;width:100%;height:100%}
+.section .image-area img{overflow:hidden;position:absolute;display:block;top:0;left:0;width:100%;height:100%;pointer-events:none;object-fit:cover;-o-object-fit:cover;object-position:center;-o-object-position:center}
+.section .text-area{position:absolute;top:50%;right:0;left:0;width:100%;margin-top:-46px;text-transform:uppercase;text-align:center;color:#fff}
+.section .text-area .title{font-size:40px;font-weight:500;letter-spacing:0.25rem;line-height:46px}
+.section .text-area .desc{padding-top:20px;font-size:20px;font-weight:400;line-height:26px}
+
+
+/*직접!*/
+.background-visual{ position:relative;width:100%;height:100vh; overflow: hidden; }
+.background-visual::before{
+   content :''; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background-color:#000; z-index: 0; }
+#video{
+  position: relative;
+  opacity: 0;
+  transition :all 0.3s ease; 
+}
+.video-ready{
+  opacity: 1 !important;
+}
+.background-visual::after{
+  /* d:n */
+  content : '';
+  z-index: 1;
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: default;
+}
+</style>
+</head>
+<body>
+<div class="content">
+  <div class="background-visual">
+    <div id="video" data-id="e8OOBTTBlyk"></div>
+  </div>
+</div>
+<script>
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var _YT;
+function onYouTubeIframeAPIReady() {
+  (function () {
+    _YT = Object.assign(_YT, YT);
+    _YT.tvInit();
+  })();
+};
+(function () {
+  _YT = {
+    _tv: '',
+    _videoId: '',
+    _quality: 'hd1080',
+    appInit: function () {
+      this.layout();
+      this.reset();
+      this.resetInit();
+      this.onResize();
+    },
+    layout: function () {
+      this.win = window;
+      this.el = document.getElementById('video');
+    },
+    reset: function () {
+      this._elId = this.el.id;
+      this._videoId = this.el.getAttribute('data-id');
+    },
+    resetInit: function () {
+      var _this = _YT;
+      this.win.addEventListener('resize', _this.onResize);
+    },
+    tvInit: function () {
+      var _this = _YT;
+      _this._tv = new _YT.Player(_this._elId, {
+        suggestedQuality: _this._quality,
+        videoId: _this._videoId,
+        events: {
+          'onReady': _this.onTVReady,
+          'onStateChange': _this.onTVStateChange
+        },
+        playerVars: {
+          controls: 0,
+          channel: 0,
+          playlist: 0,
+          modestbranding: 1,
+          rel: 1,
+          fs : 0,
+          loop : 1,
+          showinfo :0
+          // start : 0,
+          // end : 4
+        }
+      });
+    },
+    onTVReady: function (e) {
+      _YT._tv.playVideo();
+      _YT.el = document.getElementById('video');
+    },
+    onTVStateChange: function (e) {
+      if(_YT._tv.getPlayerState() == 1){
+        _YT.el.classList.add('video-ready');
+      };
+      if(_YT._tv.getPlayerState() == 0){
+        _YT.playVideo();
+      };
+    },
+    playVideo: function () {
+      _YT._tv.playVideo();
+    },
+    stopVideo: function () {
+      _YT._tv.stopVideo();
+    },
+    pauseVideo: function () {
+      _YT._tv.pauseVideo();
+    },
+    onResize: function () {
+      var _this = _YT;
+      _this.resizeAndPosition();
+    },
+    resizeAndPosition: function () {
+      var _this = _YT;
+      var ratioW = 16, ratioH = 9, ratio = ratioW / ratioH;
+      var ww = _this.win.innerWidth, wh = _this.win.innerHeight, videoW, videoH, videoT, videoL;
+      videoW = ww;
+      videoH = videoW / ratioW * ratioH;
+      if (ww / wh < ratio) {
+        videoH = wh;
+        videoW = videoH / ratioH * ratioW;
+      };
+      videoT = wh / 2 - videoH / 2;
+      videoL = ww / 2 - videoW / 2;
+      _this.el.style.width = videoW + 'px';
+      _this.el.style.height = videoH + 'px';
+      _this.el.style.top = videoT + 'px';
+      _this.el.style.left = videoL + 'px';
+    }
+  }
+  _YT.appInit();
+})();
+</script>
+</body>
+</html>

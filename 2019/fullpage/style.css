@@ -1,0 +1,17 @@
+*{
+  margin: 0; padding: 0;
+}
+
+
+
+.flp-wrap{
+  /* border: 1px solid #d3d; */
+  box-sizing: border-box;
+  width: 100%;
+}
+.flp-page{
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  display: inline-block;
+}

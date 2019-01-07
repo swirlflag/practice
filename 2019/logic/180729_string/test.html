@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+var a = "<div>hello</div>"+
+        "<p>hihi</p>"+
+        "<pre>"+
+            "<span>pre1</span>"+
+            "<span>pre2</span>"+
+        "</pre>"+
+        "<p>last!</p>"
+;
+var b = "<div>hello</div>" +
+        "<p>hihi</p>"
+;
+
+var auto = (txt) => {
+    var arr = decomStringToArray(txt),
+        txtFinsh = remakePlusStringFromArray('(추가사항)', arr)
+    ;
+    return txtFinsh;    
+};
+
+var remakePlusStringFromArray = (newstring,arr) =>{
+    var fin = '';
+    for(let i = 0; i < arr.length; ++i){
+        if(i > 0 && i < arr.length){
+            fin += newstring;
+        };
+        fin += arr[i];
+    };
+    return fin;
+};
+
+var exceptionState = (txtCopy,i,state) => {
+    var exception = ['pre'],
+        memotxt = '',
+        s = state;
+    ;
+    if(txtCopy[i] == '<'){
+        for (let j = 0; j < exception.length; ++j) {
+            for (let k = 0; k < exception[j].length; ++k) {
+                if (txtCopy[i + 1 + k] == exception[j][k]) {
+                    memotxt += exception[j][k];
+                };
+            };
+            if(memotxt == exception[j]) {
+                if(txtCopy[i+1] == '/'){
+                    console.log('true로 체인지!');
+                    s = true;
+                }else{
+                    console.log('false로 체인지!');
+                    s = false;
+                };
+                break;
+            };
+        };
+    };
+    console.log(s,'s');
+    return s;
+};
+
+var decomStringToArray = (string) => {
+    var txtCopy = string,
+        startIndexMemo = [],
+        endIndexMemo = [],
+        makeArr = [],
+        tagEnd = false,
+        state = true
+    ;
+
+    for (let i = 0; i < txtCopy.length+1; ++i) {
+        state = exceptionState(txtCopy, i,state);        
+        if(state){
+            if (txtCopy[i] == '<' && txtCopy[i + 1] !== '/') {
+                startIndexMemo.push(i);
+            } else if (txtCopy[i] == '<' && txtCopy[i + 1] == '/') {
+                tagEnd = true;
+            };
+            if (tagEnd && txtCopy[i] == '>') {
+                endIndexMemo.push(i + 1);
+                let start = startIndexMemo.pop(),
+                    end = endIndexMemo.pop()
+                ;
+                makeArr.push(txtCopy.substring(start, end));
+                tagEnd = false;
+                txtCopy = string;
+            };
+        }else{
+            
+        };
+    };
+    return makeArr;
+};
+
+
+
+</script>
+</html>
