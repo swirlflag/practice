@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Templates Sample</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <!-- #1 -->
+        <h3>{{ message }}</h3>
+        <h4>{{ message2 }}</h4>
+      </header>
+      <section>
+        <!-- #2 -->
+        <p v-bind:id="uid">이 태그의 id 값은{{uid}}입니다~</p>
+
+        <!-- #3 -->
+        <button v-on:click="toggleFlag">list toggle button</button>
+        <button v-on:click="oneplusUid">plus uid</button>
+        <button v-on:click="sayHi">hihi</button>
+
+        <!-- #4 -->
+        <ul v-if="flag">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+      </section>
+    </div>
+
+    <script src="js/vendor/vue.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.2"
   },
   "devDependencies": {},

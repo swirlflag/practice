@@ -1,21 +1,29 @@
+var Home = {
+  template : ``
+}
+
+
 var Login = {
   template: `
     <div>
-      Login Section
-      <router-view> /LoginForm/ </router-view>
+      <h2>Login Section</h2>
+      <router-view>
+        /LoginForm/
+      </router-view>
     </div>
   `,
 };
+
 var LoginForm = {
   template: `
     <form action="/" method="post">
       <div>
-          <label for="account">E-mail : </label>
-          <input type="email" id="account">
+        <label for="account">E-mail : </label>
+        <input type="email" id="account">
       </div>
       <div>
-          <label for="password">Password : </label>
-          <input type="password" id="password">
+        <label for="password">Password : </label>
+        <input type="password" id="password">
       </div>
     </form>
   `,
@@ -23,8 +31,8 @@ var LoginForm = {
 var List = {
   template: `
     <div>
-      List Section
-      <router-view></router-view>
+      <h2>List Section</h2>
+      <router-view> /ListItems/</router-view>
     </div>
   `,
 };
@@ -41,11 +49,10 @@ var ListItems = {
 // 할일 #2
 // Main 컴포넌트와 그 하위 컴포넌트를 아래 등록해보세요.
 
-
 var Main = {
   template : `
     <div>
-      Main Contents
+      <h2>Main Contents</h2>
       <router-view></router-view>
     </div>
   `,
@@ -81,7 +88,12 @@ var routes = [
     children : [
       { path : '', component : MainContents }
     ]
+  },
+  {
+    path : '/home',
+    component : Home,
   }
+
 ];
 
 

@@ -4,16 +4,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Nested Router Sample</title>
+    <style>
+      h1{
+        text-decoration: none;
+      }
+      a{
+        text-decoration: none;
+      }
+      h2{
+        color: #11f;
+      }
+      .links{
+        border: 1px solid #000;
+        padding: 10px;
+        border-radius: 10px;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <h1>Hello Vue Nested Router!</h1>
+      <router-link to='/'>
+        <h1>Hello Vue Nested Router!</h1>
+      </router-link>
       <p>
-        <router-link to="/login">Go to Login</router-link>
-        <router-link to="/list">Go to List</router-link>
-        <router-link to="/main">Go to main</router-link>
+        <router-link to="/main" class="links">Go to main</router-link>
+        <router-link to="/login" class="links">Go to Login</router-link>
+        <router-link to="/list" class="links">Go to List</router-link>
         <!-- 할일 #3 -->
         <!-- `/main` 에 반응할 Nested Router 를 아래에 추가하세요 -->
+
       </p>
       <router-view></router-view>
     </div>
