@@ -7,7 +7,7 @@ import './style.css'
 // console.log(Vue)
 // console.log(App)
 // window.a = App;
-// console.log(myFirstGlobalComponent)
+console.log(myFirstGlobalComponent)
 
 Vue.component('my-first-global-component',myFirstGlobalComponent);
 
