@@ -10,11 +10,14 @@
 
 <script>
 
-import LoginForm from './components/LoginForm'
+import LoginForm from './components/LoginForm.vue'
+import myFirstComponent from './compornents/myFirstComponent.vue'
 
 export default {
   name: 'App',
-  'login-form' : LoginForm
+  components : {
+    'login-form' : LoginForm
+  },
 }
 
 </script>
