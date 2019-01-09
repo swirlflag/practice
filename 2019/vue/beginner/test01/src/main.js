@@ -6,7 +6,7 @@ import './style.css'
 //
 // console.log(Vue)
 // console.log(App)
-window.a = App;
+// window.a = App;
 // console.log(myFirstGlobalComponent)
 
 Vue.component('my-first-global-component',myFirstGlobalComponent);
