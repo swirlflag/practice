@@ -1,7 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-new Vue({
+
+
+var a = new Vue({
     el: '#app',
-    render: h => h(App)
+    render: h => h(App),
 })
+
+console.log(a);
+
+
+
+
+window.a = a;
