@@ -18,7 +18,7 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
     <my-first-global-component></my-first-global-component>
-    <my-first-component v-for="i in arrr"></my-first-component>
+    <my-first-component v-for="index in arrr" v-bind:key="index"></my-first-component>
   </div>
 </template>
 
