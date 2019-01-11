@@ -1,9 +1,20 @@
 <template>
   <div>
     <ul>
-      <li v-for="todoItem in todoItems" v-bind:key="todoItem">
-        {{todoItem}}
-        <!-- <button></button>    -->
+      <li class="shadow" v-for="(todoItem, index) in propsdata" v-bind:key="index">
+
+        <span class="checkbtn" v-bind:class="{'checkbtn-completed' : todoItem.completed}" v-on:click="toggleComplete(index)">
+          <i class="fas fa-check"></i>
+        </span>
+
+        <span class="" v-bind:class="{'text-completed' : todoItem.completed}">
+          {{todoItem.item}}
+        </span>
+
+        <span class="removebtn" v-on:click="removeTodo(index)">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+
       </li>
     </ul>
   </div>
@@ -11,24 +22,26 @@
 
 <script>
 export default {
-  data : function(){
-    return {
-      todoItems : []
-    }
+  
+  props : ['propsdata'],
+
+  methods : {
+    removeTodo : function(index){
+      this.$emit('removeItem', index);
+    },
+    toggleComplete : function(index){
+      this.$emit('toggleItem', index);
+    },
   },
+  
   created : function(){
-    if(localStorage.length > 0 ){
-      for(var i = 0; i < localStorage.length; i++){
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-          this.todoItems.push(localStorage.key(i));
-        };
-      };
-    };
+    console.log(this.propsdata)
   },
+
 }
 </script>
 
-<style>
+<style scoped>
 
 ul{
   list-style-type: none;
@@ -50,6 +63,19 @@ li{
   line-height: 45px;
   color: #62acde;
   margin-right :5px;
+    cursor:pointer;
+}
+.checkbtn-completed{
+  color : #b3adad;
+}
+.text-completed{
+  text-decoration: line-through;
+  color : #b3adad;
+}
+.removebtn{
+  cursor: pointer;
+  margin-left: auto;
+  color: #de4343;
 }
 
 </style>

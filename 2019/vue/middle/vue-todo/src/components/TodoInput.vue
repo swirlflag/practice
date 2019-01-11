@@ -1,25 +1,45 @@
 <template>
   <div class="inputbox shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-    <!-- <button v-on:click="addTodo" class="addbtn">add</button> -->
     <span class="addcontainer" v-on:click="addTodo">
       <i class="fas fa-plus addbtn"></i>
     </span>
+    <modal v-if="showModal">
+      <h3 slot="header">
+        <span>경고</span>
+        <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
+      </h3>
+      <p slot="body">텍스트를 입력해주세요.</p>
+    </modal>
   </div>
+  
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
+
+  components : {
+    'modal' : Modal,
+  },
+
   data : function(){
     return {
-      newTodoItem : ""
+      newTodoItem : "",
+      showModal : false,
     }
   },
   methods : {
     addTodo : function(){
-      localStorage.setItem(this.newTodoItem,this.newTodoItem);
-      console.log(this.newTodoItem);
-
+      if(this.newTodoItem !== ''){
+        this.$emit('addTodoItem', this.newTodoItem);
+        this.clearInput();
+      }else{
+        this.showModal = !this.showModal;
+      };
+    },
+    clearInput : function(){
       this.newTodoItem = "";
     },
   },
@@ -58,5 +78,18 @@ input:focus{
   color : #fff;
   vertical-align : middle;
 }
+.close-modalbtn{
+  color: #42b983;
+}
 
+button{
+  cursor: pointer;
+}
+
+</style>
+
+<style scoped>
+i{
+  cursor: pointer;
+}
 </style>
