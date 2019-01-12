@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ul>
-      <li class="shadow" v-for="(todoItem, index) in propsdata" v-bind:key="index">
-
+    <transition-group name="list" tag="ul">
+    <!-- <ul> -->
+      <li class="shadow list-item" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
         <span class="checkbtn" v-bind:class="{'checkbtn-completed' : todoItem.completed}" v-on:click="toggleComplete(index)">
           <i class="fas fa-check"></i>
         </span>
@@ -14,9 +14,9 @@
         <span class="removebtn" v-on:click="removeTodo(index)">
           <i class="fas fa-trash-alt"></i>
         </span>
-
       </li>
-    </ul>
+    <!-- </ul> -->
+    </transition-group>
   </div>
 </template>
 
@@ -76,6 +76,14 @@ li{
   cursor: pointer;
   margin-left: auto;
   color: #de4343;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s ease-out;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 </style>
