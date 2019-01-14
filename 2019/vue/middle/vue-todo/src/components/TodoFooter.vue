@@ -1,15 +1,48 @@
 <template>
+<div>
+  
   <div class="clear-all-container shadow" v-on:click="clearTodo">
     <span class="clear-all-btn">Claer All</span>
   </div>
+
+  <modal v-if="showModal">
+    <h3 slot="header">
+      <span>빈 리스트</span>
+      <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
+    </h3>
+    <p slot="body">삭제할 리스트가 없습니다.</p>
+  </modal>
+  
+</div>
+
 </template>
 
 <script>
 
+
+import Modal from './common/Modal.vue'
+
 export default {
+
+  props : ['propsdata'],
+
+  components : {
+    'modal' : Modal
+  },
+
+  data(){
+    return {
+      showModal : false,
+    }
+  },
+
   methods : {
-    clearTodo : function(){
-      this.$emit('clearItem');
+    clearTodo(){
+      if(this.propsdata.length){
+        this.$emit('clearItem'); 
+      }else{
+        this.showModal = !this.showModal;
+      }
     }
   }
 }

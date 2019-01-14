@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <todo-header></todo-header>
-    <todo-input v-on:addTodoItem="addOneItem"></todo-input>
+    <todo-input v-on:addTodoItem="addOneItem" v-bind:propsdata="todoItems"></todo-input>
     <todo-list v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></todo-list>
-    <todo-footer v-on:clearItem="clearAllItem"></todo-footer>
+    <todo-footer v-on:clearItem="clearAllItem" v-bind:propsdata="todoItems"></todo-footer>
   </div>
 </template>
 
@@ -23,37 +23,37 @@ export default {
     'todo-footer' : TodoFooter,
   },
 
-  data : function(){
+  data(){
     return {
       todoItems : []
     }
   },
 
   methods : {
-    addOneItem : function(newItem){
-      var obj = {completed : false, item : newItem};
-      localStorage.setItem(newItem,JSON.stringify(obj));
-      console.log(1);
+    addOneItem(newItem){
+      const obj = {completed : false, item : newItem};
+      localStorage.setItem(newItem,JSON.stringify(obj))
       this.todoItems.push(obj);
     },
-    removeOneItem : function(index){
+    removeOneItem(index){
       localStorage.removeItem(this.todoItems[index].item);
       this.todoItems.splice(index,1);
     },
-    toggleOneItem : function(index){
+    toggleOneItem(index){
       this.todoItems[index].completed = !this.todoItems[index].completed
       localStorage.removeItem(this.todoItems[index].item);
       localStorage.setItem(this.todoItems[index].item,JSON.stringify(this.todoItems[index]));    
     },
-    clearAllItem : function(){
+    clearAllItem(){
       this.todoItems = [];   
       localStorage.clear();
     },
+
   },
 
-  created : function(){
+  created(){
     if(localStorage.length > 0 ){
-      for(var i = 0; i < localStorage.length; i++){
+      for(let i = 0; i < localStorage.length; i++){
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
         };
@@ -81,6 +81,9 @@ button{
 }
 .shadow{
   box-shadow: 5px 10px 10px rgba(0,0,0,0.03);
+}
+.fas.fa-times{
+  cursor: pointer;
 }
 
 </style>

@@ -1,18 +1,25 @@
 <template>
+
+<div>
+
   <div class="inputbox shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span class="addcontainer" v-on:click="addTodo">
       <i class="fas fa-plus addbtn"></i>
     </span>
-    <modal v-if="showModal">
-      <h3 slot="header">
-        <span>경고</span>
-        <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
-      </h3>
-      <p slot="body">텍스트를 입력해주세요.</p>
-    </modal>
   </div>
+
+
+  <modal v-if="showModal">
+    <h3 slot="header">
+    <span>{{ modalData.header }}</span>
+      <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
+    </h3>
+    <p slot="body">{{ modalData.text }}</p>
+  </modal>
   
+</div>
+
 </template>
 
 <script>
@@ -20,27 +27,48 @@ import Modal from './common/Modal.vue'
 
 export default {
 
+  props : ['propsdata'],
+
   components : {
     'modal' : Modal,
   },
 
-  data : function(){
+  data(){
     return {
       newTodoItem : "",
       showModal : false,
+      modalData : {
+        header : '',
+        text : '',
+      },
     }
   },
+  
   methods : {
-    addTodo : function(){
-      if(this.newTodoItem !== ''){
+    addTodo(){
+      if(this.hasItemCheck()){
+        this.modalProcess('중복 리스트', '이미 해당 리스트가 존재합니다.');
+      }else if(this.newTodoItem == ''){
+        this.modalProcess('빈 입력값', '텍스트를 입력해주세요.');
+      }else{
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
-      }else{
-        this.showModal = !this.showModal;
       };
     },
-    clearInput : function(){
+    clearInput(){
       this.newTodoItem = "";
+    },
+    hasItemCheck(){
+      for(var key of this.propsdata){
+        if(key.item == this.newTodoItem){
+          return true;
+        };
+      };
+      return false;
+    },
+    modalProcess(header,text){
+      this.modalData = {header : header, text : text};
+      this.showModal = !this.showModal;
     },
   },
 }
@@ -89,6 +117,7 @@ button{
 </style>
 
 <style scoped>
+
 i{
   cursor: pointer;
 }
