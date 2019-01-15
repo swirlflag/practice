@@ -1,6 +1,6 @@
 <template>
 <div>
-  
+
   <div class="clear-all-container shadow" v-on:click="clearTodo">
     <span class="clear-all-btn">Claer All</span>
   </div>
@@ -12,7 +12,7 @@
     </h3>
     <p slot="body">삭제할 리스트가 없습니다.</p>
   </modal>
-  
+
 </div>
 
 </template>
@@ -24,7 +24,7 @@ import Modal from './common/Modal.vue'
 
 export default {
 
-  props : ['propsdata'],
+  // props : ['propsdata'],
 
   components : {
     'modal' : Modal
@@ -38,8 +38,9 @@ export default {
 
   methods : {
     clearTodo(){
-      if(this.propsdata.length){
-        this.$emit('clearItem'); 
+      if(this.$store.state.todoItems.length){
+        // this.$emit('clearItem');
+        this.$store.commit('removeAllItem');
       }else{
         this.showModal = !this.showModal;
       }

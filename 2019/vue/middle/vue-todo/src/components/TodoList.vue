@@ -1,9 +1,8 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-    <!-- <ul> -->
-      <li class="shadow list-item" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item">
-        <span class="checkbtn" v-bind:class="{'checkbtn-completed' : todoItem.completed}" v-on:click="toggleComplete(index)">
+      <li class="shadow list-item" v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item">
+        <span class="checkbtn" v-bind:class="{'checkbtn-completed' : todoItem.completed}" v-on:click="toggleComplete(todoItem,index)">
           <i class="fas fa-check"></i>
         </span>
 
@@ -11,31 +10,30 @@
           {{todoItem.item}}
         </span>
 
-        <span class="removebtn" v-on:click="removeTodo(index)">
+        <span class="removebtn" v-on:click="removeTodo(todoItem,index)">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
-    <!-- </ul> -->
     </transition-group>
   </div>
 </template>
 
 <script>
 export default {
-  
-  props : ['propsdata'],
+
+  // props : ['propsdata'],
 
   methods : {
-    removeTodo(index){
-      this.$emit('removeItem', index);
+    removeTodo(todoItem, index){
+      this.$store.commit('removeOneItem', {todoItem,index});
     },
-    toggleComplete(index){
-      this.$emit('toggleItem', index);
+    toggleComplete(todoItem, index){
+      this.$store.commit('toggleOneItem', {todoItem, index});
     },
   },
-  
+
   created(){
-    console.log(this.propsdata)
+    // console.log(this.$store.state.todoItems)
   },
 
 }
@@ -47,7 +45,7 @@ ul{
   list-style-type: none;
   padding-left: 0;
   margin-top: 0;
-  text-align: left;  
+  text-align: left;
 }
 li{
   display: flex;

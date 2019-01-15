@@ -17,7 +17,7 @@
     </h3>
     <p slot="body">{{ modalData.text }}</p>
   </modal>
-  
+
 </div>
 
 </template>
@@ -27,7 +27,7 @@ import Modal from './common/Modal.vue'
 
 export default {
 
-  props : ['propsdata'],
+  // props : ['propsdata'],
 
   components : {
     'modal' : Modal,
@@ -43,7 +43,7 @@ export default {
       },
     }
   },
-  
+
   methods : {
     addTodo(){
       if(this.hasItemCheck()){
@@ -51,7 +51,8 @@ export default {
       }else if(this.newTodoItem == ''){
         this.modalProcess('빈 입력값', '텍스트를 입력해주세요.');
       }else{
-        this.$emit('addTodoItem', this.newTodoItem);
+        // this.$emit('addTodoItem', this.newTodoItem);
+        this.$store.commit('addOneItem', this.newTodoItem);
         this.clearInput();
       };
     },
@@ -59,7 +60,7 @@ export default {
       this.newTodoItem = "";
     },
     hasItemCheck(){
-      for(var key of this.propsdata){
+      for(var key of this.$store.state.todoItems){
         if(key.item == this.newTodoItem){
           return true;
         };
@@ -99,7 +100,7 @@ input:focus{
   background : linear-gradient(to right, #6478FB, #8763FB);
   display : block;
   width :3rem;
-  border-radius: 0 5px 5px 0;  
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
 .addbtn{
