@@ -19,12 +19,11 @@
 
 <script>
 
+import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
 import Modal from './common/Modal.vue'
 
 export default {
-
-  // props : ['propsdata'],
 
   components : {
     'modal' : Modal
@@ -39,14 +38,25 @@ export default {
   methods : {
     clearTodo(){
       if(this.$store.state.todoItems.length){
-        // this.$emit('clearItem');
-        this.$store.commit('removeAllItem');
+        this.$store.commit('removeAllItem', this.showModal);
       }else{
         this.showModal = !this.showModal;
       }
-    }
-  }
-}
+    },    
+
+    // 이거 map하려다가 중단
+    // ...mapMutations({
+    //   clearTodo : 'removeAllItem',
+    // })
+
+  },
+
+  computed : {
+    ...mapState(['todoItems']),
+    ...mapGetters(['storedTodoItems']),
+  },
+
+} //~ export
 
 </script>
 

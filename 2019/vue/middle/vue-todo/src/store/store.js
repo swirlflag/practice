@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const storage = {
-  
+
   fetch(){
     const arr = [];
     if(localStorage.length > 0){
@@ -15,7 +15,7 @@ const storage = {
       }
     }
     return arr;
-  },// ..fetch
+  },// ~ fetch
 
 };
 
@@ -23,7 +23,19 @@ export const store = new Vuex.Store({
   
   state : {
     todoItems : storage.fetch(),
-  }, // ..state
+    showModal : false,
+    // modalText : {header : '', text : '',},
+  }, // ~ state
+  
+  getters : {
+    storedTodoItems(state) {
+      return state.todoItems;
+    },
+    storedShowModal(state) {
+      return state.showModal;
+    },
+    
+  },
 
   mutations : {
 
@@ -39,8 +51,8 @@ export const store = new Vuex.Store({
     },
 
     toggleOneItem(state, payload){
-      payload.todoItem.completed = !payload.todoItem.completed;
-      localStorage.removeItem(state.todoItems[payload]);
+      state.todoItems[payload.index].completed = !state.todoItems[payload.index].completed;
+      localStorage.removeItem(payload.todoItem.item);
       localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
     },
 
@@ -49,6 +61,6 @@ export const store = new Vuex.Store({
       localStorage.clear();
     },
 
-  },// ..mutations
+  },// ~mutations
 
 });

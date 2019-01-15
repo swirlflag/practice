@@ -23,17 +23,7 @@ export default {
     'todo-footer' : TodoFooter,
   },
 
-  data(){
-    return {
-      todoItems : []
-    }
-  },
-
-  methods : {
-
-  },
-
-}
+}// ~ export 
 
 </script>
 
