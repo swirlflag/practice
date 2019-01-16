@@ -23,8 +23,8 @@ export const store = new Vuex.Store({
   
   state : {
     todoItems : storage.fetch(),
-    showModal : false,
-    // modalText : {header : '', text : '',},
+    isOnModal : false,
+    modalText : { header : 'text', text : 'text', },
   }, // ~ state
   
   getters : {
@@ -59,6 +59,19 @@ export const store = new Vuex.Store({
     removeAllItem(state){
       state.todoItems = [];
       localStorage.clear();
+    },
+
+    showModal(state, obj){
+      state.modalText = {
+        header: obj.header,
+        text : obj.text,
+      };
+      state.isOnModal = !state.isOnModal;
+    },
+
+    hideModal(state){
+      state.isOnModal = !state.isOnModal;
+      state.modalText = {};
     },
 
   },// ~mutations

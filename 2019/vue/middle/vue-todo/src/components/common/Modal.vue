@@ -1,18 +1,21 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask">
+    <div class="modal-mask" v-if="this.isOnModal" v-on:click="this.hideModal">
       <div class="modal-wrapper">
         <div class="modal-container">
 
           <div class="modal-header">
             <slot name="header">
-              <h3>haha</h3>
+              <h3>
+                <span>{{ this.modalText.header }}</span>
+                <i class="fas fa-times close-modalbtn"></i>
+              </h3>
             </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              default body
+              <p>{{ this.modalText.text }}</p>
             </slot>
           </div>
 
@@ -24,8 +27,27 @@
 
 <script>
 
+import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
+
 export default {
-  
+
+  computed : {
+    ...mapState([
+      'isOnModal', 
+      'modalText'
+    ]),
+  },
+
+  methods : {
+    ...mapMutations({
+      hideModal : 'hideModal',
+    }),
+  },
+
+  created(){
+    // console.log(this.modalText.header);
+  },
+
 }
 </script>
 

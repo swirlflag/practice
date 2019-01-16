@@ -1,18 +1,8 @@
 <template>
 <div>
-
-  <div class="clear-all-container shadow" v-on:click="clearTodo">
+  <div class="clear-all-container shadow" v-on:click="clearCheckTodo">
     <span class="clear-all-btn">Claer All</span>
   </div>
-
-  <modal v-if="showModal">
-    <h3 slot="header">
-      <span>빈 리스트</span>
-      <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
-    </h3>
-    <p slot="body">삭제할 리스트가 없습니다.</p>
-  </modal>
-
 </div>
 
 </template>
@@ -21,40 +11,31 @@
 
 import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
-import Modal from './common/Modal.vue'
-
 export default {
 
-  components : {
-    'modal' : Modal
-  },
-
-  data(){
-    return {
-      showModal : false,
-    }
+  computed : {
+    ...mapState(['todoItems', 'isOnModal', 'modalText']),
+    ...mapGetters(['storedTodoItems']),
   },
 
   methods : {
-    clearTodo(){
+    clearCheckTodo(){
       if(this.$store.state.todoItems.length){
-        this.$store.commit('removeAllItem', this.showModal);
+        this.clearTodo();
       }else{
-        this.showModal = !this.showModal;
-      }
+        this.showModal({
+          header : '항목 없음',
+          text : '삭제할 리스트가 없습니다.',
+        });
+      };
     },    
 
-    // 이거 map하려다가 중단
-    // ...mapMutations({
-    //   clearTodo : 'removeAllItem',
-    // })
+    ...mapMutations({
+      clearTodo : 'removeAllItem',
+      showModal : 'showModal',
+    }),
 
-  },
-
-  computed : {
-    ...mapState(['todoItems']),
-    ...mapGetters(['storedTodoItems']),
-  },
+  }, // ~metods
 
 } //~ export
 

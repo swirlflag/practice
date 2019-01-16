@@ -10,55 +10,65 @@
   </div>
 
 
-  <modal v-if="showModal">
+  <!-- <modal v-if="isOnModal">
     <h3 slot="header">
     <span>{{ modalData.header }}</span>
-      <i class="fas fa-times close-modalbtn" v-on:click="showModal = false"></i>
+      <i class="fas fa-times close-modalbtn" v-on:click="isOnModal = false"></i>
     </h3>
     <p slot="body">{{ modalData.text }}</p>
-  </modal>
+  </modal> -->
 
 </div>
 
 </template>
 
 <script>
-import Modal from './common/Modal.vue'
+
+import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
 export default {
 
-  // props : ['propsdata'],
-
   components : {
-    'modal' : Modal,
+
+  },
+
+  computed : {
+    ...mapState([
+      'todoItems', 
+      'isOnModal', 
+      'modalText'
+    ]),
   },
 
   data(){
     return {
       newTodoItem : "",
-      showModal : false,
-      modalData : {
-        header : '',
-        text : '',
-      },
     }
   },
 
   methods : {
+    
     addTodo(){
       if(this.hasItemCheck()){
-        this.modalProcess('중복 리스트', '이미 해당 리스트가 존재합니다.');
+        this.showModal({
+          header : '중복 리스트',
+          text : '이미 해당 내용의 리스트가 있습니다.',
+        });
       }else if(this.newTodoItem == ''){
-        this.modalProcess('빈 입력값', '텍스트를 입력해주세요.');
+        this.showModal({
+          header : '빈 입력창',
+          text : '텍스트를 입력해주세요.',
+        });
       }else{
-        // this.$emit('addTodoItem', this.newTodoItem);
-        this.$store.commit('addOneItem', this.newTodoItem);
+        this.addOneItem(this.newTodoItem);
         this.clearInput();
       };
     },
+
     clearInput(){
       this.newTodoItem = "";
     },
+
     hasItemCheck(){
       for(var key of this.$store.state.todoItems){
         if(key.item == this.newTodoItem){
@@ -67,10 +77,17 @@ export default {
       };
       return false;
     },
-    modalProcess(header,text){
-      this.modalData = {header : header, text : text};
-      this.showModal = !this.showModal;
-    },
+    
+    // modalProcess(header,text){
+    //   this.modalData = {header : header, text : text};
+    //   this.showModal = !this.showModal;
+    // },
+
+    ...mapMutations({
+      showModal : 'showModal',
+      addOneItem : 'addOneItem',
+    }),
+
   },
 }
 </script>

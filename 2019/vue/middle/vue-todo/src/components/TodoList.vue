@@ -24,8 +24,6 @@ import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
 export default {
 
-  // props : ['propsdata'],
-
   methods : {
     ...mapMutations({
       removeTodo : 'removeOneItem',
@@ -34,8 +32,9 @@ export default {
   },
 
   computed : {
+    ...mapState(['todoItems','isOnModal']),
     ...mapGetters(['storedTodoItems']),
-    ...mapState(['todoItems'])
+    
   },
 
   created(){
