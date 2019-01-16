@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as getters from './getters';
+import * as mutations from './mutations';
+
 
 Vue.use(Vuex);
 
@@ -27,47 +30,8 @@ export const store = new Vuex.Store({
     modalText : { header : 'text', text : 'text', },
   }, // ~ state
   
-  getters : {
-    storedTodoItems(state) {
-      return state.todoItems;
-    },
-  },
+  getters : getters,
 
-  mutations : {
-    addOneItem(state, newItem) {
-      const obj = {completed: false,item: newItem};
-      localStorage.setItem(newItem, JSON.stringify(obj));
-      state.todoItems.push(obj);
-    },
-
-    removeOneItem(state, payload){
-      localStorage.removeItem(payload.todoItem.item);
-      state.todoItems.splice(payload.index, 1);
-    },
-
-    toggleOneItem(state, payload){
-      state.todoItems[payload.index].completed = !state.todoItems[payload.index].completed;
-      localStorage.removeItem(payload.todoItem.item);
-      localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
-    },
-
-    removeAllItem(state){
-      state.todoItems = [];
-      localStorage.clear();
-    },
-
-    showModal(state, obj){
-      state.modalText = {
-        header: obj.header,
-        text : obj.text,
-      };
-      state.isOnModal = !state.isOnModal;
-    },
-
-    hideModal(state){
-      state.isOnModal = !state.isOnModal;
-      state.modalText = {};
-    },
-  },// ~mutations
-
+  mutations: mutations,
+  
 });// ~export 
