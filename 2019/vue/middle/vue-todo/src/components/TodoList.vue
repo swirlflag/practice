@@ -24,21 +24,17 @@ import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
 export default {
 
+  computed : {
+    ...mapState([
+      'todoItems',
+    ]),
+  },
+
   methods : {
     ...mapMutations({
       removeTodo : 'removeOneItem',
       toggleComplete : 'toggleOneItem',
     }),
-  },
-
-  computed : {
-    ...mapState(['todoItems','isOnModal']),
-    ...mapGetters(['storedTodoItems']),
-    
-  },
-
-  created(){
-    // console.log(this.$store.state.todoItems)
   },
 
 }// ~ export

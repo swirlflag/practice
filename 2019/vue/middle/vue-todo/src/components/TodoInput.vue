@@ -1,25 +1,12 @@
 <template>
-
 <div>
-
   <div class="inputbox shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span class="addcontainer" v-on:click="addTodo">
       <i class="fas fa-plus addbtn"></i>
     </span>
   </div>
-
-
-  <!-- <modal v-if="isOnModal">
-    <h3 slot="header">
-    <span>{{ modalData.header }}</span>
-      <i class="fas fa-times close-modalbtn" v-on:click="isOnModal = false"></i>
-    </h3>
-    <p slot="body">{{ modalData.text }}</p>
-  </modal> -->
-
 </div>
-
 </template>
 
 <script>
@@ -27,10 +14,6 @@
 import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 
 export default {
-
-  components : {
-
-  },
 
   computed : {
     ...mapState([
@@ -54,6 +37,7 @@ export default {
           header : '중복 리스트',
           text : '이미 해당 내용의 리스트가 있습니다.',
         });
+        this.testAction('hoho');
       }else if(this.newTodoItem == ''){
         this.showModal({
           header : '빈 입력창',
@@ -61,27 +45,18 @@ export default {
         });
       }else{
         this.addOneItem(this.newTodoItem);
-        this.clearInput();
+        this.newTodoItem = "";
       };
     },
 
-    clearInput(){
-      this.newTodoItem = "";
-    },
-
     hasItemCheck(){
-      for(var key of this.$store.state.todoItems){
+      for(var key of this.todoItems){
         if(key.item == this.newTodoItem){
           return true;
         };
       };
       return false;
     },
-    
-    // modalProcess(header,text){
-    //   this.modalData = {header : header, text : text};
-    //   this.showModal = !this.showModal;
-    // },
 
     ...mapMutations({
       showModal : 'showModal',
@@ -103,6 +78,7 @@ input:focus{
   height: 50px;
   line-height: 50px;
   border-radius: 5px;
+  position: relative;
 }
 .inputbox input{
   border-style : none;
@@ -113,9 +89,10 @@ input:focus{
   width: 80%;
 }
 .addcontainer{
-  float: right;
+  position: absolute;
+  right: 0;top: 0;
   background : linear-gradient(to right, #6478FB, #8763FB);
-  display : block;
+  display: inline-block;
   width :3rem;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
@@ -131,12 +108,8 @@ input:focus{
 button{
   cursor: pointer;
 }
-
-</style>
-
-<style scoped>
-
 i{
   cursor: pointer;
 }
+
 </style>

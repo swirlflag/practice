@@ -31,14 +31,9 @@ export const store = new Vuex.Store({
     storedTodoItems(state) {
       return state.todoItems;
     },
-    storedShowModal(state) {
-      return state.showModal;
-    },
-    
   },
 
   mutations : {
-
     addOneItem(state, newItem) {
       const obj = {completed: false,item: newItem};
       localStorage.setItem(newItem, JSON.stringify(obj));
@@ -73,7 +68,6 @@ export const store = new Vuex.Store({
       state.isOnModal = !state.isOnModal;
       state.modalText = {};
     },
-
   },// ~mutations
 
 });

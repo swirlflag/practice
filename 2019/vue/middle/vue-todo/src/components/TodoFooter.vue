@@ -14,14 +14,15 @@ import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
 export default {
 
   computed : {
-    ...mapState(['todoItems', 'isOnModal', 'modalText']),
-    ...mapGetters(['storedTodoItems']),
+    ...mapState([
+      'todoItems', 
+    ]),
   },
 
   methods : {
     clearCheckTodo(){
       if(this.$store.state.todoItems.length){
-        this.clearTodo();
+        this.removeAllItem();
       }else{
         this.showModal({
           header : '항목 없음',
@@ -31,7 +32,7 @@ export default {
     },    
 
     ...mapMutations({
-      clearTodo : 'removeAllItem',
+      removeAllItem : 'removeAllItem',
       showModal : 'showModal',
     }),
 

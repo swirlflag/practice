@@ -11,10 +11,9 @@
 <script>
 
 import TodoHeader from './components/Todoheader.vue';
-import TodoInput from './components/TodoInput.vue';
-import TodoList from './components/TodoList.vue';
+import TodoInput  from './components/TodoInput.vue';
+import TodoList   from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
-
 import Modal from './components/common/Modal.vue';
 
 import { mapGetters,mapState,mapMutations,mapActions } from 'vuex';
@@ -27,23 +26,6 @@ export default {
     'todo-list' : TodoList,
     'todo-footer' : TodoFooter,
     'modal' : Modal,
-  },
-
-  computed : {
-    ...mapState([
-      'todoItems',
-      'isOnModal'
-    ]),
-  },
-  
-  methods : {
-    ...mapMutations({
-      showModal : 'showModal',
-    })
-  },
-
-  created(){
-    // console.log(this.todoItems);
   },
 
 }// ~ export 
