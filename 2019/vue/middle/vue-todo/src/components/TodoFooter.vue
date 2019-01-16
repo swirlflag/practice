@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="clear-all-container shadow" v-on:click="clearCheckTodo">
+  <div class="clear-all-container shadow" v-on:click="clearCheck">
     <span class="clear-all-btn">Claer All</span>
   </div>
 </div>
@@ -20,7 +20,7 @@ export default {
   },
 
   methods : {
-    clearCheckTodo(){
+    clearCheck(){
       if(this.$store.state.todoItems.length){
         this.removeAllItem();
       }else{
