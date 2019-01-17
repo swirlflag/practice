@@ -37,7 +37,6 @@ export default {
           header : '중복 리스트',
           text : '이미 해당 내용의 리스트가 있습니다.',
         });
-        this.testAction('hoho');
       }else if(this.newTodoItem == ''){
         this.showModal({
           header : '빈 입력창',
