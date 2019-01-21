@@ -20,11 +20,14 @@ function fetchArgsList(args) {
   return axios.get(`${config.baseUrl}${args}`);
 }
 
-
+function fetchUserInfo(userName){
+  return axios.get(`${config.baseUrl}user/${userName}.json`);
+}
 
 export {
   fetchNewsList,
   fetchAskList,
   fetchJobsList,
   fetchArgsList,
+  fetchUserInfo,
 }
