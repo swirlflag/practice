@@ -4,4 +4,8 @@ export default {
     return state.ask
   },
 
+  fetchedItem(state){
+    return state.item
+  },
+
 };
