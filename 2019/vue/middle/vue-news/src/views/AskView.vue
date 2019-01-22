@@ -1,7 +1,7 @@
 <template>
   <div>
     <p v-for="item in ask" :key="item.id">
-      <a v-bind:href="item.url" target="_blank">{{ item.title }}</a>
+      <a v-bind:href="item.url">{{ item.title }}</a>
       <small>{{ item.time_ago }}, {{ item.user }}</small>
     </p>
   </div>  
