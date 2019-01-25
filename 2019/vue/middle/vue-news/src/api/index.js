@@ -28,6 +28,9 @@ function fetchItemInfo(itemId) {
   return axios.get(`${config.baseUrl}item/${itemId}.json`);
 }
 
+function fetchList(pageName){
+  return axios.get(`${config.baseUrl}${pageName}.json`);
+}
 
 export {
   fetchNewsList,
@@ -36,4 +39,5 @@ export {
   fetchArgsList,
   fetchUserInfo,
   fetchItemInfo,
+  fetchList,
 }

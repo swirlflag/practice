@@ -1,25 +1,35 @@
 <template>
+
   <div>
-    <p>name : {{ userInfo.id }} </p>
-    <p>karma  : {{ userInfo.karma }}</p>
-    <p>created : {{ userInfo.created }}</p>
+    <user-profile v-bind:info='userInfo'>
+      <div slot="username">
+        {{ userInfo.id }}
+      </div>
+      <template slot="time">
+        <span>Joined {{ userInfo.created }}</span>
+      </template>
+      <div slot="karma">
+        <span>{{ userInfo.karma }}</span>        
+      </div>
+    </user-profile>
   </div>
+  
 </template>
 
 <script>
 
-import { mapState, mapGetters} from 'vuex';
-import axios from 'axios';
+import UserProfile from '../components/UserProfile.vue';
 
 export default {
+
+  components : {
+    'user-profile' : UserProfile,
+  },
 
   computed :{
     userInfo(){
       return this.$store.state.user;
     },
-    
-    ...mapState(['user']),
-
   },
   
   created(){

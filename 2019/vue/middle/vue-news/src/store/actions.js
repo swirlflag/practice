@@ -3,39 +3,64 @@ import {
   fetchAskList , 
   fetchJobsList , 
   fetchUserInfo , 
-  fetchItemInfo
+  fetchItemInfo ,
+  fetchList ,
 } from '../api/index.js';
 
 export default {
       
-  FETCH_NEWS({ commit }){
+  FETCH_NEWS(context) {
     fetchNewsList()
-      .then(({ data }) => commit('SET_NEWS', data))
+      .then((response) => {
+        context.commit('SET_NEWS', response.data);
+        return response;
+      })
       .catch(error => console.log(error));
   },
   
-  FETCH_ASK({ commit }){
+  FETCH_ASK( context ){
     fetchAskList()
-      .then(({ data }) => commit('SET_ASK', data))
+      .then((response) => {
+        context.commit('SET_ASK', response.data);
+        return response;
+      })
       .catch(error => console.log(error));
   },
 
-  FETCH_JOBS({ commit }){
+  FETCH_JOBS(context ){
     fetchJobsList()
-      .then(({ data }) => commit('SET_JOBS', data))
+      .then((response) => {
+        context.commit('SET_JOBS', response.data);
+        return response;
+      })
       .catch(error => console.log(error));
   },
 
-  FETCH_USER({ commit }, name){
+  FETCH_USER(context, name){
     fetchUserInfo(name)
-      .then(({ data }) => commit('SET_USER', data))
+      .then((response) => {
+        context.commit('SET_USER', response.data);
+        return response;
+      })
       .catch(error => console.log(error));
   },
 
-  FETCH_ITEM({ commit }, item){
+  FETCH_ITEM(context, item){
     fetchItemInfo(item)
-      .then(({ data }) => commit('SET_ITEM', data))
+      .then((response) => {
+        context.commit('SET_ITEM', response.data);
+        return response;
+      })
       .catch(error => console.log(error));
+  },
+
+  FETCH_LIST(context, pagename){
+    fetchList(pagename)
+    .then((response)=> {
+      context.commit('SET_LIST', response.data);
+      return response;
+    })
+    .catch(error=> console.log(error));
   },
 
 };
