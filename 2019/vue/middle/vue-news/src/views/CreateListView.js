@@ -3,20 +3,18 @@ import bus from '../utils/bus.js';
 
 export default function createListView(name){
   return {
-
+    
     name:  name,
 
     created(){
-      // setTimeout(()=>{
-        bus.$emit('start:spinner');
+      bus.$emit('start:spinner');
         this.$store.dispatch('FETCH_LIST', this.$route.name)
           .then(() => {
-            bus.$emit('end:spinner');
+            bus.$emit("end:spinner");
           })
           .catch((error) => {
             console.log(error)
           });
-      // },3000);
     },
 
     render(createElement){

@@ -54,13 +54,13 @@ export default {
       .catch(error => console.log(error));
   },
 
-  FETCH_LIST(context, pagename){
-    fetchList(pagename)
+  FETCH_LIST(context, pageName){
+    fetchList(pageName)
     .then((response)=> {
       context.commit('SET_LIST', response.data);
-      return response;
+      // return response;
     })
-    .catch(error=> console.log(error));
+    .catch(error => console.log(error));
   },
 
 };

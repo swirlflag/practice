@@ -41,38 +41,10 @@
 
 export default {
 
-  data(){
-    return {
-      name : '',
-    }
-  },
-
   computed : {
     listItems(){    
-      return this.$store.list;
-
-      if(this.name == 'news'){
-        return this.$store.state.news;
-      }else if(this.name == 'ask'){
-        return this.$store.state.ask;
-        
-      }else if(this.name == 'jobs'){
-        return this.$store.state.jobs
-      };
+      return this.$store.state.list;
     },
-  },
-
-  created(){    
-    this.name = this.$route.name;
-    let fetchName = '';
-    if(this.name == 'news'){
-      fetchName = 'FETCH_NEWS';
-    }else if(this.name == 'ask'){
-      fetchName = 'FETCH_ASK';
-    }else if(this.name == 'jobs'){
-      fetchName = 'FETCH_JOBS';
-    }
-    // this.$store.dispatch(fetchName);
   },
 
 }
