@@ -1,19 +1,25 @@
 <template>
-  <div></div>
+  <div>
     <list-item></list-item>
   </div>
 </template>
 
 <script>
 
-import ListView from '../components/ListView.vue';
+import ListItem from '../components/ListItem.vue';
+// import ListMixin from '../mixins/ListMixin.js';
 import bus from '../utils/bus.js';
 
 export default {
 
   components : {
-    'list-view' : ListView,
+    'list-item' : ListItem,
   },
+
+  mounted(){
+    bus.$emit('end:spinner');
+  },
+  // mixins : [ListMixin],
 
 };
 
