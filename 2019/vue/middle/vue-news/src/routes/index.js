@@ -10,7 +10,7 @@ import createListView from '../views/CreateListView.js';
 import bus from '../utils/bus.js';
 import { store } from '../store/index.js';
 
-import { fn } from './test.js';
+import { fetchStart } from './fetchStart.js';
 
 Vue.use(VueRouter);
 
@@ -29,18 +29,10 @@ export const router = new VueRouter({
       path : '/news',
       name : 'news',
       component: NewsView,
-      beforeEnter : (to,from,next) => {
-        bus.$emit('start:spinner');
-        store.dispatch('FETCH_LIST', to.name)
-          .then(() => {
-            next();
-            // bus.$emit('end:spinner');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      beforeEnter(to,from,next){
+        fetchStart(to, from, next);
       },
-      // component: createListView('NewsView'),
+        // component: createListView('NewsView'),
 
     },
 
@@ -53,7 +45,7 @@ export const router = new VueRouter({
         store.dispatch('FETCH_LIST', to.name)
           .then(() => {
             next();
-            bus.$emit('end:spinner');
+            // bus.$emit('end:spinner');
           })
           .catch((error) => {
             console.log(error);
@@ -72,7 +64,7 @@ export const router = new VueRouter({
         store.dispatch('FETCH_LIST', to.name)
           .then(() => {
             next();
-            bus.$emit('end:spinner');
+            // bus.$emit('end:spinner');
           })
           .catch((error) => {
             console.log(error);

@@ -5,9 +5,9 @@
 
     <spinner :loading="loadingStatus"></spinner>
 
-    <transition name="page">
+    <!-- <transition name="page"> -->
       <router-view></router-view>
-    </transition>
+    <!-- </transition> -->
 
   </div>
 </template>
