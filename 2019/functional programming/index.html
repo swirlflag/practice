@@ -319,19 +319,32 @@ const find = (f, iter) => go(
   , filter(f)
 );
 
-log(find(p=> p.age > 30, users));
+// log(find(p=> p.age > 30, users));
 
 
 
+function add10(a,callback){
+  setTimeout(() =>{
+    callback(a+10);
+  },1000);
+};
+
+// add10(5,r=>console.log(r));
+
+function add20(a){
+  return new Promise(resolve => setTimeout(()=>resolve(a+20),1000)) 
+}
+
+add20(20)
+  // .then((r)=> {log(r); return add20(r)})
+;
 
 
-
-
-
-
-
-
-
+const go1 = (a,f) => f(a);
+var add5 = (a) => a + 5;
+const delay100 = (a) => {
+  return new Promise(resolve => setTimeout(()=>resolve(a),1000));
+}
 
 </script>
 </body>
