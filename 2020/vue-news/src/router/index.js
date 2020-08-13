@@ -6,7 +6,6 @@ import ViewJobs from '../views/ViewJobs.vue';
 import ViewItem from '../views/ViewItem.vue';
 import ViewUser from '../views/ViewUser.vue';
 
-
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -29,17 +28,16 @@ const router = new VueRouter({
             component : ViewJobs,
         },
         {
-            path : '/item',
-            component : ViewItem,
-        },
-        {
-            path : '/user',
+            path : '/user/:id',
             component : ViewUser,
         },
+        {
+            path : '/item/:id',
+            component : ViewItem,
+        }
 
-
-    ]
-})
+    ],
+});
 
 export {
     router,

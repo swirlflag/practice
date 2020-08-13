@@ -1,11 +1,11 @@
 import { 
-    fetchNewsItems, fetchJobsItems, fetchAskItems,
+    fetchNewsItems, fetchJobsItems, fetchAskItems, fetchUserInfo, fetchItemInfo
 } from '../api/index.js';
 
 const actions = {
-    FETCH_NEWS({commit}) {
+    FETCH_NEWS({ commit }) {
         fetchNewsItems()
-            .then(({data}) => {
+            .then(({ data }) => {
                 commit('SET_NEWS', data);
             })
             .catch((error) => {
@@ -13,9 +13,9 @@ const actions = {
             })
         ;
     },
-    FETCH_JOBS({commit}) {
+    FETCH_JOBS({ commit }) {
         fetchJobsItems()
-            .then(({data}) => {
+            .then(({ data }) => {
                 commit('SET_JOBS' , data)
             })
             .catch((error) => {
@@ -23,13 +23,33 @@ const actions = {
             })
         ;
     },
-    FETCH_ASK({commit}) {
+    FETCH_ASK({ commit }) {
         fetchAskItems()
             .then(({data}) => {
-                commit('SET_ASK' , data)
+                commit('SET_ASK' , data);
             })
             .catch((error) => {
                 console.log(error)
+            })
+        ;
+    },
+    FETCH_USER({ commit }, username) {
+        fetchUserInfo(username)
+            .then(({data}) => {
+                commit('SET_USER' , data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        ;
+    },
+    FETCH_ITEM({ commit } , id) {
+        fetchItemInfo(id)
+            .then(({ data }) => {
+                commit('SET_ITEM' , data);
+            })
+            .catch((error) => {
+                console.log(error);
             })
         ;
     }

@@ -1,8 +1,16 @@
 <template>
     <div class="page--news">
-        <div v-for="news in newsItems" v-bind:key="news.title">
-            {{ news.title }}
-        </div>
+        <p v-for="item in newsItems" v-bind:key="item.title">
+            <a v-bind:href="item.url" target="_blank">
+                {{ item.title }}
+            </a>
+            <small>
+                {{ item.time_ago }} by 
+                <router-link v-bind:to="`user/${item.user}`">
+                    {{ item.user }}
+                </router-link>
+            </small>
+        </p>
     </div>
 </template>
 

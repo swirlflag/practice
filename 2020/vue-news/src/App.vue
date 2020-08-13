@@ -1,9 +1,3 @@
-<style>
-body {
-    padding: 0;
-    margin: 0;
-}
-</style>
 <template>
   <div id="app">
       <Toolbar></Toolbar>
@@ -21,3 +15,10 @@ export default {
     }
 }
 </script>
+
+<style>
+body {
+    padding: 0;
+    margin: 0;
+}
+</style>
