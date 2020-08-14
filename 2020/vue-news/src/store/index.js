@@ -17,8 +17,8 @@ const store = new Vuex.Store({
     getters : {
         askItems : ({askItems}) => askItems,
         newsItems : ({newsItems}) => newsItems,
-        jobsItems : ({jobsItems}) => jobsItems, 
-        userItems : ({userItems}) => userItems, 
+        jobsItems : ({jobsItems}) => jobsItems,
+        userItems : ({userItems}) => userItems,
         itemList : ({itemList}) => itemList,
     },
     mutations,

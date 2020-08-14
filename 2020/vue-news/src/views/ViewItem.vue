@@ -1,6 +1,9 @@
 <template>
     <div class="page--item">
-        
+        <p>{{ this.$store.state.itemList.title }}</p>
+        <div>
+            {{ this.$store.state.itemList.content }}
+        </div>
     </div>
 </template>
 
@@ -10,13 +13,11 @@
 export default {
     data() {
         return {
-            itemId : this.$route.params.id,
+            itemId : this.$route.params.id
         }
     },
     computed : {
-        itemData() {
-            return this.$store.getters.itemList[this.itemId];
-        },
+
     },
     created() {
         this.$store.dispatch('FETCH_ITEM', this.itemId);
