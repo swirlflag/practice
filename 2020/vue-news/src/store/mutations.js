@@ -12,7 +12,7 @@ const mutations = {
         state.userItems = user;
     },
     SET_ITEM(state, item) {
-        state.itemList = item;
+        state.itemInfo = item;
     }
 };
 

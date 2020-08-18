@@ -1,35 +1,18 @@
 <template>
-    <div class="page--jobs">
-        <p v-for="item in jobsItems" v-bind:key="item.title">
-            <a v-bind:href="item.url" target="_blank">
-                {{ item.title }}
-            </a>
-            <small> {{ item.time_ago }} , {{ item.domain }}</small>
-        </p>
-    </div>
-
+    <ListItem></ListItem>
 </template>
 
 <script>
 
-import { mapGetters } from 'vuex';
+import ListItem from '../components/ListItem.vue';
 
 export default {
-    data() {
-        return {
-        }
+    components : {
+        ListItem
     },
-    computed : {
-        ...mapGetters([
-            'jobsItems'
-        ]),
-    },
-    created() {
-        this.$store.dispatch('FETCH_JOBS');
-    }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

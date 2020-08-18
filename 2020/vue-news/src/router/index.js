@@ -13,18 +13,20 @@ const router = new VueRouter({
     routes : [
         {
             path : '/',
-            redirect : '/news',
         },
         {
             path : '/news',
+            name : 'news',
             component : ViewNews,
         },
         {
             path : '/ask',
+            name : 'ask',
             component : ViewAsk,
         },
         {
             path : '/jobs',
+            name : 'jobs',
             component : ViewJobs,
         },
         {
