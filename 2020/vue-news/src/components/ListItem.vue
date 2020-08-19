@@ -41,7 +41,6 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 export default {
     props : ['pageCategory'],
     computed : {
@@ -50,8 +49,8 @@ export default {
         },
     },
     created() {
-        const actionName = `FETCH_${this.$route.name.toUpperCase()}`;
-        this.$store.dispatch(actionName);
+        // const actionName = `FETCH_${this.$route.name.toUpperCase()}`;
+        // this.$store.dispatch(actionName);
     },
 }
 </script>

@@ -23,4 +23,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### https://www.inflearn.com/course/vue-js/lecture/17043?tab=curriculum
+### https://www.inflearn.com/course/vue-js/lecture/17045?tab=curriculum
