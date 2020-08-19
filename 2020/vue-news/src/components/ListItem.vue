@@ -45,7 +45,8 @@ export default {
     props : ['pageCategory'],
     computed : {
         listItems() {
-            return this.$store.getters[`${this.$route.name}Items`];
+            // return this.$store.getters[`${this.$route.name}Items`];
+            return this.$store.state.list
         },
     },
     created() {

@@ -1,39 +1,9 @@
 import { 
-    fetchNewsItems, fetchJobsItems, fetchAskItems, fetchUserInfo, fetchItemInfo
+     fetchUserInfo, fetchItemInfo , fetchList
 } from '../api/index.js';
 
 const actions = {
-    FETCH_NEWS({ commit }) {
-        fetchNewsItems()
-            .then((response) => {
-                commit('SET_NEWS', response.data);
-                return response;
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        ;
-    },
-    FETCH_JOBS({ commit }) {
-        fetchJobsItems()
-            .then(({ data }) => {
-                commit('SET_JOBS' , data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        ;
-    },
-    FETCH_ASK({ commit }) {
-        fetchAskItems()
-            .then(({data}) => {
-                commit('SET_ASK' , data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        ;
-    },
+
     FETCH_USER({ commit }, username) {
         fetchUserInfo(username)
             .then(({data}) => {
@@ -51,6 +21,16 @@ const actions = {
             })
             .catch((error) => {
                 console.log(error);
+            })
+        ;
+    },
+    FETCH_LIST({commit} , pageName) {
+        fetchList(pageName)
+            .then((response) => {
+                commit("SET_LIST" , response.data) 
+            })
+            .catch((error) => {
+                console.log(error)
             })
         ;
     }

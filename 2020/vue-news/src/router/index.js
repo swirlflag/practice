@@ -3,8 +3,10 @@ import VueRouter from 'vue-router';
 import ViewNews from '../views/ViewNews.vue';
 import ViewAsk from '../views/ViewAsk.vue';
 import ViewJobs from '../views/ViewJobs.vue';
+
 import ViewItem from '../views/ViewItem.vue';
 import ViewUser from '../views/ViewUser.vue';
+// import CreateListView from '../views/CreateListView.js';
 
 Vue.use(VueRouter);
 
@@ -14,6 +16,21 @@ const router = new VueRouter({
         {
             path : '/',
         },
+        // {
+        //     path : '/news',
+        //     name : 'news',
+        //     component : CreateListView('ViewNews'),
+        // },
+        // {
+        //     path : '/ask',
+        //     name : 'ask',
+        //     component : CreateListView('ViewAsk'),
+        // },
+        // {
+        //     path : '/jobs',
+        //     name : 'jobs',
+        //     component : CreateListView('ViewJobs'),
+        // },
         {
             path : '/news',
             name : 'news',
