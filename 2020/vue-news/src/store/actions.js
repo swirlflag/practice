@@ -5,7 +5,7 @@ import {
 const actions = {
 
     FETCH_USER({ commit }, username) {
-        fetchUserInfo(username)
+        return fetchUserInfo(username)
             .then(({data}) => {
                 commit('SET_USER' , data);
             })
@@ -15,7 +15,7 @@ const actions = {
         ;
     },
     FETCH_ITEM({ commit } , id) {
-        fetchItemInfo(id)
+        return fetchItemInfo(id)
             .then(({ data }) => {
                 commit('SET_ITEM' , data);
             })
@@ -25,7 +25,7 @@ const actions = {
         ;
     },
     FETCH_LIST({commit} , pageName) {
-        fetchList(pageName)
+        return fetchList(pageName)
             .then((response) => {
                 commit("SET_LIST" , response.data) 
             })

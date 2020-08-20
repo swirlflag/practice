@@ -1,4 +1,4 @@
-import bus from '../utils/bus.js';
+// import bus from '../utils/bus.js';
 import ListItem from '../components/ListItem.vue';
 
 export default {
@@ -6,14 +6,14 @@ export default {
         ListItem
     },
     created() {
-        bus.$emit('start:spinner');
-        this.$store.dispatch('FETCH_LIST' , this.$route.name)
-            .then(() => {
-                bus.$emit('end:spinner');
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        ;
+        // bus.$emit('start:spinner');
+        // this.$store.dispatch('FETCH_LIST' , this.$route.name)
+        //     .then(() => {
+        //         bus.$emit('end:spinner');
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+        // ;
     },
 }
