@@ -1,23 +1,17 @@
 <template>
-    <div>
-        <h1>chartjs</h1>
-        <BarChart v-on:refresh="refeshChart" v-bind:propsdata="chartDataSet"></BarChart>
-        <LineChart></LineChart>
-    </div>
+    <canvas ref="lineChart" id="myChart1" width="400" height="400"></canvas>
 </template>
 
 <script>
 
-import BarChart from './components/BarChart.vue';
-import LineChart from './components/LineChart.vue';
-
 export default {
-    components : {
-        BarChart, LineChart
-    },
-    data () {
-        return {
-            chartDataSet : [{
+    mounted() {
+
+        var myChart = new this.$_Chart(this.$refs.lineChart, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
                     label: '# of Votes',
                     data: [12, 19, 3, 5, 2, 3],
                     backgroundColor: [
@@ -38,21 +32,20 @@ export default {
                     ],
                     borderWidth: 1
                 }]
-            ,
-        }
-    },
-    methods : {
-        // getChartData() {
-            
-        // },
-        refeshChart() {
-            
-        },
-    },
-    created(){
-        // getChar
-    }
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });    
 
+        {myChart}
+    }
 }
 </script>
 
