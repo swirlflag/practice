@@ -1,5 +1,11 @@
 import { 
-     fetchUserInfo, fetchItemInfo , fetchList
+     fetchUserInfo, 
+     fetchItemInfo , 
+     fetchList , 
+     fetchNewsList, 
+     fetchAskList, 
+    //  fetchAskList , 
+    //  fetchJobsList , 
 } from '../api/index.js';
 
 const actions = {
@@ -24,16 +30,25 @@ const actions = {
             })
         ;
     },
-    FETCH_LIST({commit} , pageName) {
-        return fetchList(pageName)
-            .then((response) => {
-                commit("SET_LIST" , response.data) 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        ;
-    }
+
+    async FETCH_NEWS(context) {
+        const response = await fetchNewsList();
+        context.commit('SET_NEWS', response.data);
+        return response;
+    },
+
+    async FETCH_ASK(context){
+        const response = await fetchAskList();
+        context.commit('SET_ASK' , response.data);
+        return response;
+    },
+    
+    async FETCH_LIST(context , pageName) {
+        const response = await fetchList(pageName);
+        context.commit('SET_LIST', response.data);
+        return response;    
+    },
+
 };
 
 export default actions;

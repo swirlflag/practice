@@ -1,19 +1,13 @@
 <template>
-    <ListItem></ListItem>
+    <ListItem v-bind:items="this.$store.state.newsList"></ListItem>
 </template>
 
 <script>
-import ListItem from '../components/ListItem.vue';
+
 import ListMixin from '../mixins/ListMixin.js';
 
 export default {
-    components : {
-        ListItem,
-    },
     mixins : [ ListMixin ], 
-    created() {
-        
-    }
 };
 </script>
 

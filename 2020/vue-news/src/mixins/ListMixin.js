@@ -1,4 +1,4 @@
-// import bus from '../utils/bus.js';
+import bus from '../utils/bus.js';
 import ListItem from '../components/ListItem.vue';
 
 export default {
@@ -16,4 +16,7 @@ export default {
         //     })
         // ;
     },
+    mounted() {
+        bus.$emit('end:spinner');
+    }
 }

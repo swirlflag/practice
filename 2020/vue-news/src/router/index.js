@@ -39,13 +39,10 @@ const router = new VueRouter({
             component : ViewNews,
             beforeEnter : (to,from,next) => {
                 bus.$emit('start:spinner');
-                store.dispatch('FETCH_LIST' , to.name)
-                    .then(() => {
-                        bus.$emit('end:spinner');
-                        next();
-                    })
+                store.dispatch('FETCH_NEWS')
+                    .then(() => next())
                     .catch((error) => {
-                        console.log(error);
+                        console.log(error)
                     })
                 ;
 
@@ -57,13 +54,10 @@ const router = new VueRouter({
             component : ViewAsk,
             beforeEnter (to,from,next) {
                 bus.$emit('start:spinner');
-                store.dispatch('FETCH_LIST' , to.name)
-                    .then(() => {
-                        bus.$emit('end:spinner');
-                        next();
-                    })
+                store.dispatch('FETCH_ASK')
+                    .then(() => next())
                     .catch((error) => {
-                        console.log(error);
+                        console.log(error)
                     })
                 ;
             }
@@ -75,10 +69,7 @@ const router = new VueRouter({
             beforeEnter(to,from,next) {
                 bus.$emit('start:spinner');
                 store.dispatch('FETCH_LIST', to.name)
-                    .then(() => {
-                        bus.$emit('end:spinner');
-                        next();
-                    })
+                    .then(() =>  next())
                     .catch((error) => {
                         console.log(error);
                     })

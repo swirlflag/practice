@@ -1,5 +1,12 @@
 const mutations = {
 
+    SET_NEWS(state, news) {
+        state.newsList = news;
+    },
+    SET_ASK(state,ask) {
+        state.askList = ask;
+    },
+
     SET_USER(state, user) {
         state.userItems = user;
     },

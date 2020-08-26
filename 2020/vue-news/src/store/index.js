@@ -10,7 +10,9 @@ const store = new Vuex.Store({
     state : {
         userItems : {},
         itemInfo : {},
-        list : {}
+        list : {},
+        newsList : {},
+        askList : {},
     },
     getters : {
         list : ({list}) => list,
