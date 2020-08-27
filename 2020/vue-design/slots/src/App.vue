@@ -1,14 +1,9 @@
 <template>
   <div>
     <ul>
-      <!-- <item>아이템 1</item>
-      <item>아이템 2</item>
-      <item>아이템 3</item>
-      <item>아이템 4</item>
-      <item>아이템 5</item> -->
-      
-
-      <item v-for="(item,idx) in items" v-bind:key="idx" v-bind:item="item"></item>
+      <item v-for="(item,idx) in items" v-bind:key="idx">
+          {{item}}
+        </item>
     </ul>
   </div>
 </template>

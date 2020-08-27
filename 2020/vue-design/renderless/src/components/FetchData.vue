@@ -11,20 +11,17 @@ export default {
   },
   created() {
     axios.get(this.url)
-      .then(response => {
+      .then(response => {        
         this.response = response.data;
         this.loading = false;
       })
       .catch(error => {
+    
         alert('[ERROR] fetching the data', error);
-        console.log(error);
       });
   },
   render() {
-    return this.$scopedSlots.default({
-      response: this.response,
-      loading: this.loading,
-    });
+    return this.$scopedSlots.default({...this.$data});
   },
 }
 </script>
