@@ -20,21 +20,15 @@ var center = P.view.center;
 
 var strokeWidth = maxSize * 0.02;
 
-
 function Badge () {
     this.states = {
-        idle : {
-            duration : 150,
-            target : 'twirling',
-        },
-        twirling : {
-            degrees : 360,
-            target : 'idle',
-            increment  : 5,
-        }
+        idle        : { target : 'easeOut',     duration : 150, },
+        easeOut     : { target : 'twirling',    degress : 20,   increment : 1,},
+        twirling    : { target : 'easeIn',      degrees : 320,  increment : 5,},
+        easeIn      : { target : 'idle'  ,      degress: 20,    increment : 1,},
     };
     this.state = this.states.idle;
-}
+};
 
 Badge.prototype = {
     constructor : Badge ,
@@ -62,6 +56,8 @@ Badge.prototype = {
     rotate : function () {
         this.state.frameCount = this.state.frameCount || 0;
         this.state.frameCount++;
+
+        console.log(this.state);
         if(this.state.increment){
             this.path.rotate(this.state.increment);
             this.state.rotation = this.state.rotation || 0;
