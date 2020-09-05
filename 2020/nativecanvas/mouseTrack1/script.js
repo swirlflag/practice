@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particleArray = [];
 
-const numberOfParticle = 300;
+const numberOfParticle = 200;
 
 // 마우스 포지션 잡기
 const mouse = {
@@ -23,7 +23,6 @@ window.addEventListener('mousemove' , (event) => {
 //     mouse.y = null;
 // },200);
 
-
 // 파티클 만들기
 
 class Particle {
@@ -37,23 +36,23 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        // ctx.rect(this.x, this.y, this.size,this.size)
         ctx.fillStyle = this.color;
         ctx.fill();
     };
     update() {
-        this.size -= 0.1;
+        this.size -= 0.15;
+
         if(this.size < 0){
             this.x = (mouse.x + (Math.random() *20) -10);
             this.y = (mouse.y + (Math.random() *20) -10);
-            this.size = (Math.random() * 10) + 2;
+            this.size = (Math.random() * 15) + 2;
             this.weight = (Math.random() * 2) - 0.5;
         };
         this.y += this.weight;
         this.weight += 0.2;
 
         if(this.y > canvas.height - this.size){
-            this.weight *= -1;
+            this.weight *= -0.5;
         };
     };
 }
