@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particleArray = [];
 
-const numberOfParticle = 500;
+const numberOfParticle = 100;
 
 // 마우스 포지션 잡기
 const mouse = {
@@ -25,7 +25,7 @@ window.addEventListener('mousemove' , (event) => {
 
 // 파티클 만들기
 let myHue = 0;
-let myColor = `hsl(${myHue}, 100%,80%)`;
+let myColor = `pink`;
 
 class Particle {
     constructor(x,y,size,color, weight){
@@ -43,20 +43,20 @@ class Particle {
         ctx.fill();
     };
     update() {
-        this.size -= 0.2;
+        this.size -= 0.1;
 
         if(this.size < 0){
             this.x = (mouse.x + (Math.random() *20) -10);
             this.y = (mouse.y + (Math.random() *20) -10);
-            this.size = (Math.random() * 15) + 10;
+            this.size = (Math.random() * 5) + 5;
             this.weight = (Math.random() * 2) - 0.5;
             this.color = myColor;
         };
         this.y += this.weight;
-        this.weight += 0.05;
+        this.weight += 0.2;
 
         if(this.y > canvas.height - this.size){
-            this.weight *= -0.25;
+            this.weight *= -0.8;
         };
     };
 }
@@ -78,21 +78,44 @@ function init() {
 let n = 0;
 let nn = 1;
 
+
+const connect = () => {
+    let opacityValue = 1;
+    const distanceLimit = 18000    ;
+    for(let a = 0; a < particleArray.length; ++a){
+        for(let b = a; b < particleArray.length; ++b){
+            let distance =  ((particleArray[a].x - particleArray[b].x) * (particleArray[a].x - particleArray[b].x)) + 
+                            ((particleArray[a].y - particleArray[b].y) * (particleArray[a].y - particleArray[b].y))
+            ;
+            
+            if(distance < distanceLimit){
+                opacityValue = 1 - (distance/(distanceLimit*0.7));
+                ctx.strokeStyle = `rgba(255,255,255,${opacityValue})`;
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.moveTo(particleArray[a].x , particleArray[a].y);
+                ctx.lineTo(particleArray[b].x , particleArray[b].y);
+                ctx.stroke();
+            };
+        };
+    };
+};
+
 function animate(){
     
     if(Math.round(n%nn === 0)){
-        myHue += 0.2623213151;
-        myColor = `hsl(${myHue}, 100%,66%)`;
+    
         ctx.clearRect(0,0,canvas.width, canvas.height);
 
-        // ctx.fillStyle = "rgba(0,0,0,1)";
+        // ctx.fillStyle = "rgba(0,0,0,0)";
         // ctx.fillRect(0,0,canvas.width, canvas.height);
 
         for(let i = 0; i < particleArray.length; ++i){
             particleArray[i].update();
-            particleArray[i].draw();
+            // particleArray[i].draw();
         }
     }
+    connect();
 
     requestAnimationFrame(animate,++n);
 
