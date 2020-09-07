@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    /* background-color: #aaa; */
+}
+#canvas1 {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background-color: rgb(0, 0, 0);
+    /* background-color: transparent; */
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas1"></canvas>
+
+<script>
+
+const canvas = document.querySelector('#canvas1');
+const ctx = canvas.getContext('2d');
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+
+let particleArray = [];
+
+// construtor function
+let particleLength = 0;
+//
+
+class Particle{
+    constructor(x,y,directionX,directionY ,size,color,opacity){
+        this.x = x;
+        this.y = y;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+        this.color = color;
+        this.opacity = opacity;
+    };
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size , Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+    };
+    update() {
+        if(this.x + this.size > canvas.width || this.x - this.size < 0){
+            this.directionX = -this.directionX;
+        }
+        if(this.y + this.size > canvas.height || this.y - this.size < 0){
+            this.directionY = -this.directionY;
+        }
+
+        this.x += this.directionX;
+        this.y += this.directionY;
+
+    };
+};
+
+const init  = () => {
+    particleArray = [];
+    const maxSize = 50;
+    for(let i = 0; i < particleLength; ++i){
+        let size = Math.random() * maxSize;
+        // let x = Math.random() * (innerWidth - size * 2);
+        // let y = Math.random() * (innerHeight - size * 2);
+        let x = canvas.width/2;
+        let y = canvas.height/2;
+        let directionX = (Math.random() * 10) * ((Math.random() > 0.5)?1:-1);
+        let directionY = (Math.random() * 10) * ((Math.random() > 0.5)?1:-1) ;
+        let color = '#fff';
+        let opacity = size/(maxSize*0.9);
+        particleArray.push(new Particle(x,y,directionX,directionY,size,color,opacity));
+    };
+};
+
+
+const animate = () => {
+    requestAnimationFrame(animate);
+
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+
+    for(let i = 0; i < particleArray.length; ++i){
+        particleArray[i].update();
+        particleArray[i].draw();
+    };
+};
+
+particleLength = 50;
+
+init();
+animate();
+
+window.addEventListener('resize' , () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+});
+
+
+
+</script>
+</body>
+</html>

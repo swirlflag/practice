@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+body {
+    cursor: none;
+}
+#canvas1 {
+    position: absolute;
+    top: 0;left: 0;
+    width: 100%; height: 100%;
+    z-index: -10;
+    background-color: #000;
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas1"></canvas>
+
+<script>
 // 캔버스 셋팅
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
@@ -40,7 +64,7 @@ class Particle {
         ctx.fill();
     };
     update() {
-        this.size -= 0.15;
+        this.size -= 0.1;
 
         if(this.size < 0){
             this.x = (mouse.x + (Math.random() *20) -10);
@@ -49,10 +73,10 @@ class Particle {
             this.weight = (Math.random() * 2) - 0.5;
         };
         this.y += this.weight;
-        this.weight += 0.2;
+        this.weight += 0.4;
 
         if(this.y > canvas.height - this.size){
-            this.weight *= -0.5;
+            this.weight *= -0.8;
         };
     };
 }
@@ -63,7 +87,7 @@ function init() {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let size = (Math.random() * 5 )+ 2
-        let color = '#fff';
+        let color = 'lime';
         let weight = 1;
         const particle = new Particle(x,y,size,color,weight);
         particleArray.push(particle);
@@ -71,7 +95,11 @@ function init() {
 };
 
 function animate(){
-    ctx.clearRect(0,0,canvas.width, canvas.height);
+    // ctx.clearRect(0,0,canvas.width, canvas.height);
+
+    ctx.fillStyle = "rgba(0,0,0,0.15)";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+
     for(let i = 0; i < particleArray.length; ++i){
         particleArray[i].update();
         particleArray[i].draw();
@@ -80,4 +108,8 @@ function animate(){
 }
 
 init();
-animate();
+animate();  
+</script>
+
+</body>
+</html>
