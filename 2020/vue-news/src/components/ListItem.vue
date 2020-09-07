@@ -42,11 +42,15 @@
 <script>
 
 export default {
-    props : ['pageCategory'],
+    props : ['pageCategory' , 'items'],
     computed : {
         listItems() {
-            // return this.$store.getters[`${this.$route.name}Items`];
-            return this.$store.state.list
+            if(this.items){
+                console.log('props items');
+                return this.items;
+            }else {
+                return this.$store.state.list
+            }
         },
     },
     created() {

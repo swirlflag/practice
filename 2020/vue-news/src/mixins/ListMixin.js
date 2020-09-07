@@ -6,14 +6,17 @@ export default {
         ListItem
     },
     created() {
-        bus.$emit('start:spinner');
-        this.$store.dispatch('FETCH_LIST' , this.$route.name)
-            .then(() => {
-                bus.$emit('end:spinner');
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        ;
+        // bus.$emit('start:spinner');
+        // this.$store.dispatch('FETCH_LIST' , this.$route.name)
+        //     .then(() => {
+        //         bus.$emit('end:spinner');
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+        // ;
     },
+    mounted() {
+        bus.$emit('end:spinner');
+    }
 }

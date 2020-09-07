@@ -1,11 +1,17 @@
 import { 
-     fetchUserInfo, fetchItemInfo , fetchList
+     fetchUserInfo, 
+     fetchItemInfo , 
+     fetchList , 
+     fetchNewsList, 
+     fetchAskList, 
+    //  fetchAskList , 
+    //  fetchJobsList , 
 } from '../api/index.js';
 
 const actions = {
 
     FETCH_USER({ commit }, username) {
-        fetchUserInfo(username)
+        return fetchUserInfo(username)
             .then(({data}) => {
                 commit('SET_USER' , data);
             })
@@ -15,7 +21,7 @@ const actions = {
         ;
     },
     FETCH_ITEM({ commit } , id) {
-        fetchItemInfo(id)
+        return fetchItemInfo(id)
             .then(({ data }) => {
                 commit('SET_ITEM' , data);
             })
@@ -24,16 +30,25 @@ const actions = {
             })
         ;
     },
-    FETCH_LIST({commit} , pageName) {
-        fetchList(pageName)
-            .then((response) => {
-                commit("SET_LIST" , response.data) 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        ;
-    }
+
+    async FETCH_NEWS(context) {
+        const response = await fetchNewsList();
+        context.commit('SET_NEWS', response.data);
+        return response;
+    },
+
+    async FETCH_ASK(context){
+        const response = await fetchAskList();
+        context.commit('SET_ASK' , response.data);
+        return response;
+    },
+    
+    async FETCH_LIST(context , pageName) {
+        const response = await fetchList(pageName);
+        context.commit('SET_LIST', response.data);
+        return response;    
+    },
+
 };
 
 export default actions;
