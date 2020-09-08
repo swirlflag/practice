@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#canvas1 {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+}
+</style>
+<title>Document</title>
+</head>
+<body>
+
+
+<canvas id="canvas1"></canvas>
+<script>
+const canvas = document.querySelector('#canvas1');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particleArray = [];
+
+class Particle{
+    moveRadius 
+    constructor(moveRadius, step, position , size) {
+        this.moveRadius = moveRadius;
+        this.step = step;
+        this.position = position;
+        this.size = size;
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.arc(
+            Math.cos(this.position) * this.moveRadius + canvas.width/2,
+            Math.sin(this.position) * this.moveRadius + canvas.height/2,
+            this.size,
+            Math.PI * 2,
+            false,
+        );
+        ctx.closePath();
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+    }
+    update () {
+        this.position += this.step;
+        this.draw();
+    }
+}
+// const p = new Particle(111,2,180,3);
+// p.draw();
+
+
+</script>
+</body>
+</html>
