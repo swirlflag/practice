@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+}
+</style>
+</head>
+<body>
+
+<canvas></canvas>
+
+<script>
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let eyesArray = [];
+let theta ;
+
+const mouse = {
+    x : null,
+    y : null,
+};
+
+window.addEventListener('mousemove' , () => {
+    mouse.x = event.x;
+    mouse.y = event.y;
+});
+
+const randomHue = () => Math.floor(Math.random() * 360);  
+
+const calcAngleDegrees = (x,y) => Math.atan2(x,y) * 180 / Math.PI;
+
+class Eye {
+    constructor ({x, y, radius}) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.hue = randomHue();
+    }
+    draw() {
+
+    // eye
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius , Math.PI * 2 ,0);
+        ctx.fillStyle = `hsl(${this.hue}, 75%, 60%)`;
+        ctx.fill();
+        ctx.closePath();
+
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        theta = Math.atan2(dx,dy);
+
+    // iris
+        let iris_x = this.x - Math.sin(theta) * (this.radius*0.02);
+        let iris_y = this.y - Math.cos(theta) * (this.radius*0.02);
+        let irisRadius = this.radius * 0.9;
+        ctx.beginPath();
+        ctx.arc(iris_x, iris_y, irisRadius ,0, Math.PI * 2 , true );
+        ctx.fillStyle = `hsl(${this.hue}, 75%, 80%)`;
+        ctx.fill();
+        ctx.closePath();
+
+    // draw pupil 
+        let pupil_x = this.x + Math.sin(theta) * (this.radius*0.4);
+        let pupil_y = this.y + Math.cos(theta) * (this.radius*0.4);
+        let pupilRadius = this.radius * 0.6;
+        ctx.beginPath();
+        // ctx.arc(pupil_x  ,pupil_y , pupilRadius, 0, Math.PI * 2 ,true);
+        ctx.rect(pupil_x-pupilRadius/2,pupil_y-pupilRadius/2,pupilRadius,pupilRadius)
+        ctx.fillStyle = `hsl(${this.hue}, 75%, 60%)`;
+        ctx.fill();
+        ctx.closePath();
+        
+    }
+
+};
+
+const numberOfEyes = 1000;
+
+const init = () => {
+    eyesArray = [];
+    let overlapping = false;
+
+    let protection = 100000;
+    let counter = 0;
+    
+    while(eyesArray.length < numberOfEyes && counter < protection){
+        ++counter;
+        let eye = {
+            x : Math.random() * canvas.width,
+            y : Math.random() * canvas.height,
+            radius : Math.floor(Math.random() * 150) + 7,
+        }
+
+        overlapping = false;
+        for(let i = 0, l = eyesArray.length; i < l; ++i){
+            let previousEye = eyesArray[i];
+            let dx = eye.x - previousEye.x;
+            let dy = eye.y - previousEye.y;
+            let distance = Math.sqrt(dx*dx + dy*dy);
+            if(distance < (eye.radius + previousEye.radius)){
+                overlapping = true;
+                break;
+            }
+        };
+        if(!overlapping){
+            eyesArray.push(new Eye(eye));
+        }
+    }
+
+    
+    
+}
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    for(let i = 0 , l = eyesArray.length; i < l; ++i){
+        eyesArray[i].draw();
+    }
+};
+
+init();
+animate();
+
+window.addEventListener('resize' , () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+})
+
+
+
+</script>
+</body>
+</html>
