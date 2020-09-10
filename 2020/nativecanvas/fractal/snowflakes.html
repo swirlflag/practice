@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+canvas {
+    width: 100%; height: 100%;
+    position: absolute;
+    background-color: #000;
+}
+
+</style>
+</head>
+<body>
+
+<canvas></canvas>
+<script>
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let cx = canvas.width/2;
+let cy = canvas.width/2;
+
+window.addEventListener('resize' , () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cx = canvas.width/2;
+    cy = canvas.width/2;
+});
+
+
+const maxLevel = 5;
+const branches = 2;
+
+ctx.translate(cx,cy);
+
+const radian = d => d * Math.PI/180;
+
+const angle = radian(-45) ;
+
+const startStrokeLength =200;
+
+const sides = Math.floor(Math.random() * 10) + 3;
+
+const drawLine = (level) => {
+    if(level > maxLevel){
+        return
+    };
+
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(200,0);
+    ctx.stroke();
+
+    for(let i = 1; i < branches + 1; ++i){
+        ctx.save();
+        ctx.translate(200*i/branches+1,0);
+        ctx.scale(0.5,0.5);
+        ctx.save();
+
+        ctx.rotate(angle);
+        drawLine(level+1);
+        ctx.restore();
+        ctx.save();
+
+        ctx.rotate(-angle);
+        drawLine(level+1);
+        ctx.restore();
+
+        ctx.restore();
+    };
+};
+
+for(let i = 0; i < sides; ++i){
+    drawLine(0);
+    ctx.rotate(Math.PI*2/sides);
+
+}
+// drawLine(1);
+
+
+
+</script>
+</body>
+</html>

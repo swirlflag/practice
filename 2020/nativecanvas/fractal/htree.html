@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+canvas {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background-color: #000;
+}
+.generate--tree_button {
+    cursor: pointer;
+    outline:none;
+    border: none;
+    position: absolute;
+    left: 0;
+    bottom: 5%;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 30px;
+    border-radius: 50px;
+    background: brown;
+    /* background-color: #fff; */
+    color: #fff;
+    overflow: hidden;
+    
+}
+
+</style>
+</head>
+<body>
+
+<canvas></canvas>
+<button class="generate--tree_button">generate tree button</button>
+
+<script>
+
+const canvas = document.querySelector('canvas');
+const generateButton = document.querySelector('.generate--tree_button')
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let cx = canvas.width/2;
+let cy = canvas.height/2;
+
+const ctx = canvas.getContext('2d');
+
+const radian = d => d * Mat.PI/180;
+
+const drawTree = (startX , startY, len, angle , branchWidth , color1, color2) => {
+    ctx.beginPath();
+    ctx.save();
+    ctx.strokeStyle = color1;
+    ctx.fillStyle = color2;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = color2;
+    ctx.lineWidth = branchWidth;
+    ctx.translate(startX,startY);
+    ctx.rotate(angle * Math.PI/180);
+    ctx.moveTo(0,0);
+    ctx.lineTo(0, -len);
+    // if(angle > 0){
+    //     ctx.bezierCurveTo(-15,-len/2, 15, -len/2,0,-len)
+    // }else {
+    //     ctx.bezierCurveTo(15,-len/2, -15, -len/2,0,-len)
+    // };
+    
+    ctx.stroke();
+
+    if(len < 9){
+        ctx.beginPath();
+        ctx.arc(0,-len,10,0,Math.PI/1.5);
+        ctx.fill();
+        ctx.restore();
+        return;
+    };
+
+    curve1 = Math.random() * 20;
+    curve2 = Math.random() * 20 ;
+
+    drawTree(0,-len, len * 0.75 ,angle + curve1 ,branchWidth * 0.7);
+    drawTree(0,-len, len * 0.75 ,angle - curve2 ,branchWidth * 0.7);
+
+    ctx.restore();
+
+}
+
+
+
+(() => {   
+return 
+const cx = canvas.width/2;
+const cy = canvas.height/2;
+const w = 100;
+const h = 100;
+ctx.beginPath();
+ctx.fillStyle = 'dodgerblue';
+// ctx.bezierCurveTo(40,-, 100, 200, 100, 200, 20);
+ctx.rect(cx-w/2,cy-h/2,w,h);
+ctx.fill();
+})();
+
+const getnerateRandomTree = () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+    let len = Math.floor(Math.random() * 50 + 100);
+    let angle = 0;
+    let branchWidth = Math.random() * 10 + 10;
+    let color1 = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    let color2 = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+
+    drawTree(cx,canvas.height-80, len,angle, branchWidth, color1, color2);
+    generateButton.style.backgroundColor = color1;
+
+}
+
+generateButton.addEventListener('click' , getnerateRandomTree);
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

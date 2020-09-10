@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+canvas {
+    width: 100%; height: 100%;
+    position: absolute;
+    background-color: #000;
+}
+
+</style>
+</head>
+<body>
+
+
+<canvas></canvas>
+
+<script>
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const center = {
+    x : canvas.width/2,
+    y : canvas.height/2,
+};
+
+window.addEventListener('resize' ,() => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    center.x = canvas.width/2;
+    center.y = canvas.height/2;
+});
+
+const particleArray = [];
+
+let focus = false;
+
+class Particle {
+
+    constructor({centerX, centerY, angle, centerDistance , waveDistanceValue, waveDistanceSpeed ,angleSwing}) {
+        this.isConnect = true;
+        // setInterval(() => {
+        //     this.isConnect = !this.isConnect;
+        // },1000)
+        this.angle = angle;
+        this.angleSwing = angleSwing;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.centerDistance = centerDistance;
+        this.waveDistanceValue = waveDistanceValue;
+        this.waveDistanceSpeed = waveDistanceSpeed;
+        this.waveDistanceTheta = 0;
+        this.waveDistance = 0;
+        this.baseX = this.centerX + Math.cos(this.angle * Math.PI/180) * centerDistance;
+        this.baseY = this.centerY + Math.sin(this.angle * Math.PI/180) * centerDistance;
+        
+        this.x = this.baseX;
+        this.y = this.baseY;
+    };
+
+    update() {
+
+        const tx = this.centerX + Math.cos(this.angle * Math.PI/180) * (this.centerDistance + this.waveDistance);
+        const ty = this.centerY + Math.sin(this.angle * Math.PI/180) * (this.centerDistance + this.waveDistance);
+
+        const dx = (tx - this.x) * 0.9;
+        const dy = (ty - this.y) * 0.9;
+
+        this.x += dx;
+        this.y += dy;
+
+    };
+
+    draw() {
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.arc(this.x,this.y, 5, Math.PI*2,0);
+        ctx.fill();
+    };
+
+    frame() {
+        this.update();
+        this.draw();
+    };
+    
+}
+
+const particleNumber = 10;
+
+const centerDistance = 166;
+
+const init = () => {
+    for(let i = 0; i < particleNumber; ++i){
+
+        const option = {
+            centerX: center.x,
+            centerY: center.y,
+            angle : (360/particleNumber) * i,
+            angleSwing : Math.random() *1.5 + 0.2,
+            centerDistance,
+            waveDistanceValue : Math.random() * 200 + 10,
+            waveDistanceSpeed : Math.random() * 1,
+        };
+
+        const p = new Particle(option);
+        particleArray.push(p);
+    }
+};
+
+
+const animate = () => {
+
+    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    if(false){
+        requestAnimationFrame(animate);
+    }
+    
+    const length = particleArray.length;
+    const distanceLimit = 500;
+
+    for(let i = 0; i < length; ++i){
+        const p = particleArray[i];
+
+        p.angle += p.angleSwing;
+        p.waveDistanceTheta += p.waveDistanceSpeed;
+        const wave = Math.cos(p.waveDistanceTheta * Math.PI/180) * p.waveDistanceValue;
+        p.waveDistance = wave;
+
+        if(p.isConnect){
+            for(let j = 0; j < length; ++j){
+                const p2 = particleArray[j];
+                if(p === p2 || j < i){
+                    continue
+                }
+                const distance = Math.sqrt(((p.x - p2.x) * (p.x - p2.x)) + ((p.y - p2.y) * (p.y - p2.y)));
+                const alpha = 1 - (distance/(distanceLimit*0.7));
+                // const alpha = 1;
+
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+                ctx.moveTo(p.x,p.y);
+                ctx.lineTo(p2.x,p2.y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+
+        
+    
+        p.frame();
+    }
+}
+
+setInterval(() => {
+    animate();
+},16)
+// },200)
+// },500)
+// },1000)
+
+init();
+animate();
+
+</script>
+</body>
+</html>
