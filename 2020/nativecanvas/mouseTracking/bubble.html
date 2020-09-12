@@ -66,10 +66,10 @@ class Particle {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size , Math.PI * 2, false);
         // ctx.fillRect(this.x,this.y,this.size,this.size);
-        // ctx.fillStyle = this.color;        
+        ctx.fillStyle = this.color;        
         ctx.fill();
-        ctx.strokeStyle = "#fff";
-        ctx.stroke();
+        // ctx.strokeStyle = "#fff";
+        // ctx.stroke();
     };
 
     update() {

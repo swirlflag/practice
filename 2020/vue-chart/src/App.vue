@@ -56,6 +56,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    body {
+        border: 1px solid #000;
+        canvas {
+            opacity: 0.1;
+        }
+    }
 </style>
