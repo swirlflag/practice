@@ -1,7 +1,8 @@
 <template>
     <div>
-        <h1>SIGN UP</h1>
-        <SignupForm/>
+        <h1 class="page-header">SIGN UP</h1>
+        <SignupForm
+        />
     </div>
 </template>
 
