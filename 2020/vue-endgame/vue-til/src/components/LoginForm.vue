@@ -71,7 +71,10 @@ export default {
                 }
                 const { data } = await API_loginUser(loginData);
 
-                this.logMessage = `${data.user.username} 님 환영합니다.`;
+                this.$router.push('/main');
+                this.$store.commit('setUsername' , data.user.username);
+                // this.logMessage = `${data.user.username} 님 환영합니다.`;
+
             } catch (error) {
                 this.logMessage = error.response.data;
             } finally {
