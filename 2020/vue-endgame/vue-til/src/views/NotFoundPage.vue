@@ -1,15 +1,11 @@
 <template>
-    <div>
-        404 not found
-    </div>
+  <div>
+    Page is not found
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
