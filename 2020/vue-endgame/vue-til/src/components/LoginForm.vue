@@ -35,8 +35,8 @@ export default {
   data() {
     return {
       // form values
-      username: 't@t.com',
-      password: 't',
+      username: '',
+      password: '',
       // log
       logMessage: '',
     };
