@@ -23,15 +23,15 @@
 </template>
 
 <script>
+import { deleteCookie } from '@/utils/cookies';
 
-import { deleteCookie } from '@/utils/cookies.js';
 export default {
   computed: {
     isUserLogin() {
       return this.$store.getters.isLogin;
     },
     logoLink() {
-        return this.$store.getters.isLogin ? '/main' : '/login';
+      return this.$store.getters.isLogin ? '/main' : '/login';
     },
   },
   methods: {

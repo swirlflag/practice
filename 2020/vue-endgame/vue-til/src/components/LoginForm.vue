@@ -16,9 +16,10 @@
           <input id="password" type="text" v-model="password" />
         </div>
         <button
-          :disabled="!isUsernameValid || !password"
+          :disabled="isDisabledSubmitButton"
           type="submit"
           class="btn"
+          :class="{'disabled' : isDisabledSubmitButton}"
         >
           로그인
         </button>
@@ -45,6 +46,9 @@ export default {
     isUsernameValid() {
       return validateEmail(this.username);
     },
+    isDisabledSubmitButton() {
+        return !this.isUsernameValid || !this.password;
+    }
   },
   methods: {
     async submitForm() {
